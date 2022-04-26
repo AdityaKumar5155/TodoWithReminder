@@ -1,0 +1,124 @@
+var sqlite3 = require("sqlite3").verbose();
+var express = require("express");
+var http = require("http");
+var path = require("path");
+var bodyParser = require("body-parser");
+var helmet = require("helmet");
+var rateLimit = require("express-rate-limit");
+var expressValidator = require("express-validator");
+var flash = require("express-flash");
+var session = require("express-session");
+
+var app = express();
+http.createServer(app).listen(1234);
+
+//const authRouter = require("./auth");
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+});
+
+//var authRouter = require("./routes/auth");
+
+var db = new sqlite3.Database("./database/remindme.db");
+db.run(
+  "CREATE TABLE IF NOT EXISTS remindMeTbl(tid TEXT, uid TEXT, tdata TEXT, tdeadline DATETIME, tstatus TEXT)"
+);
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, "./public")));
+app.use(helmet());
+app.use(limiter);
+
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname, "./signup.html"));
+});
+
+
+
+// Add task
+
+app.get("/addTask", function (req, res) {
+  res.sendFile(path.join(__dirname, "./addTask.html"));
+});
+
+app.post("/addTask", function (req, res) {
+  db.serialize(() => {
+    db.run(
+      'INSERT INTO remindMeTbl(tid,uid,tdata,tdeadline,tstatus) VALUES(?,?,?,?,"Incomplete")',
+      [req.body.tid, req.body.uid, req.body.tdata, req.body.tdeadline],
+      function (err) {
+        if (err) {
+          return console.log(err.message);
+        }
+        console.log("New task has been added");
+        res.send(
+          "New task has been added into the database with ID = " +
+            req.body.tid +
+            " and Task body = " +
+            req.body.tdata
+        );
+      }
+    );
+  });
+});
+
+//UPDATE Task
+
+app.get("/updateTask", function (req, res) {
+  res.sendFile(path.join(__dirname, "./updateTask.html"));
+});
+
+app.post("/updateTask", function (req, res) {
+  db.serialize(() => {
+    db.run(
+      "UPDATE remindMeTbl SET tdata = ?,tstatus = ? WHERE tid = ?",
+      [req.body.tdata, req.body.tstatus, req.body.tid],
+      function (err) {
+        if (err) {
+          res.send("Error encountered while updating");
+          return console.error(err.message);
+        }
+        res.send("Entry updated successfully");
+        console.log("Entry updated successfully");
+      }
+    );
+  });
+});
+// View task list
+
+app.get("/viewTasks", function (req, res) {
+  res.sendFile(path.join(__dirname, "./viewTasks.html"));
+});
+
+app.post("/viewTasks", function (req, res) {
+  db.serialize(() => {
+    db.each(
+      "SELECT tid TaskID, tdata Task,tdeadline Deadline ,tstatus Status FROM emp WHERE uid =?",
+      [req.body.id],
+      function (err, row) {
+        if (err) {
+          res.send("Error encountered while displaying");
+          return console.error(err.message);
+        }
+        res.send(
+          ` TaskID: ${row.TaskID},    Task: ${row.Task},    Deadline: ${row.Deadline},    Status: ${row.Status}`
+        );
+        console.log("Entry displayed successfully");
+      }
+    );
+  });
+});
+
+//Close the db connection
+app.get("/close", function (req, res) {
+  db.close((err) => {
+    if (err) {
+      res.send("There is some error in closing the database");
+      return console.error(err.message);
+    }
+    console.log("Closing the database connection.");
+    res.send("Database connection successfully closed");
+  });
+});
