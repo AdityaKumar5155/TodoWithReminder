@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dbus.decorators module &mdash; dbus-python 1.2.18 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="dbus.exceptions module" href="dbus.exceptions.html" />
+    <link rel="prev" title="dbus.connection module" href="dbus.connection.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> dbus-python
+          </a>
+              <div class="version">
+                1.2.18
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">dbus-python tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="dbus.html">dbus package API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="dbus.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="dbus.bus.html">dbus.bus module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.connection.html">dbus.connection module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">dbus.decorators module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.exceptions.html">dbus.exceptions module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.gi_service.html">dbus.gi_service module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.lowlevel.html">dbus.lowlevel module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.mainloop.html">dbus.mainloop package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.proxies.html">dbus.proxies module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.server.html">dbus.server module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.service.html">dbus.service module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.types.html">dbus.types module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dbus.html#deprecated-submodules">Deprecated submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dbus.html#module-dbus">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PY3PORT.html">Porting to Python 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="news.html">Release history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="API_CHANGES.html">API changes in dbus-python 0.80</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">dbus-python</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="dbus.html">dbus package API reference</a> &raquo;</li>
+      <li>dbus.decorators module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/dbus.decorators.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-dbus.decorators">
+<span id="dbus-decorators-module"></span><h1>dbus.decorators module<a class="headerlink" href="#module-dbus.decorators" title="Permalink to this headline"></a></h1>
+<p>Service-side D-Bus decorators.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="dbus.decorators.method">
+<span class="sig-prename descclassname"><span class="pre">dbus.decorators.</span></span><span class="sig-name descname"><span class="pre">method</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dbus_interface</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_signature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_signature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_callbacks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sender_keyword</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_keyword</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination_keyword</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_keyword</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connection_keyword</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">byte_arrays</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_path_keyword</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.decorators.method" title="Permalink to this definition"></a></dt>
+<dd><p>Factory for decorators used to mark methods of a <cite>dbus.service.Object</cite>
+to be exported on the D-Bus.</p>
+<p>The decorated method will be exported over D-Bus as the method of the
+same name on the given D-Bus interface.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><cite>dbus_interface</cite><span class="classifier">str</span></dt><dd><p>Name of a D-Bus interface</p>
+</dd>
+<dt><cite>in_signature</cite><span class="classifier">str or None</span></dt><dd><p>If not None, the signature of the method parameters in the usual
+D-Bus notation</p>
+</dd>
+<dt><cite>out_signature</cite><span class="classifier">str or None</span></dt><dd><p>If not None, the signature of the return value in the usual
+D-Bus notation</p>
+</dd>
+<dt><cite>async_callbacks</cite><span class="classifier">tuple containing (str,str), or None</span></dt><dd><p>If None (default) the decorated method is expected to return
+values matching the <cite>out_signature</cite> as usual, or raise
+an exception on error. If not None, the following applies:</p>
+<p><cite>async_callbacks</cite> contains the names of two keyword arguments to
+the decorated function, which will be used to provide a success
+callback and an error callback (in that order).</p>
+<p>When the decorated method is called via the D-Bus, its normal
+return value will be ignored; instead, a pair of callbacks are
+passed as keyword arguments, and the decorated method is
+expected to arrange for one of them to be called.</p>
+<p>On success the success callback must be called, passing the
+results of this method as positional parameters in the format
+given by the <cite>out_signature</cite>.</p>
+<p>On error the decorated method may either raise an exception
+before it returns, or arrange for the error callback to be
+called with an Exception instance as parameter.</p>
+</dd>
+<dt><cite>sender_keyword</cite><span class="classifier">str or None</span></dt><dd><p>If not None, contains the name of a keyword argument to the
+decorated function, conventionally <code class="docutils literal notranslate"><span class="pre">'sender'</span></code>. When the
+method is called, the sender’s unique name will be passed as
+this keyword argument.</p>
+</dd>
+<dt><cite>path_keyword</cite><span class="classifier">str or None</span></dt><dd><p>If not None (the default), the decorated method will receive
+the destination object path as a keyword argument with this
+name. Normally you already know the object path, but in the
+case of “fallback paths” you’ll usually want to use the object
+path in the method’s implementation.</p>
+<p>For fallback objects, <cite>rel_path_keyword</cite> (new in 0.82.2) is
+likely to be more useful.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Since</dt>
+<dd class="field-odd"><p>0.80.0?</p>
+</dd>
+</dl>
+</dd>
+<dt><cite>rel_path_keyword</cite><span class="classifier">str or None</span></dt><dd><p>If not None (the default), the decorated method will receive
+the destination object path, relative to the path at which the
+object was exported, as a keyword argument with this
+name. For non-fallback objects the relative path will always be
+‘/’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Since</dt>
+<dd class="field-odd"><p>0.82.2</p>
+</dd>
+</dl>
+</dd>
+<dt><cite>destination_keyword</cite><span class="classifier">str or None</span></dt><dd><p>If not None (the default), the decorated method will receive
+the destination bus name as a keyword argument with this name.
+Included for completeness - you shouldn’t need this.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Since</dt>
+<dd class="field-odd"><p>0.80.0?</p>
+</dd>
+</dl>
+</dd>
+<dt><cite>message_keyword</cite><span class="classifier">str or None</span></dt><dd><p>If not None (the default), the decorated method will receive
+the <cite>dbus.lowlevel.MethodCallMessage</cite> as a keyword argument
+with this name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Since</dt>
+<dd class="field-odd"><p>0.80.0?</p>
+</dd>
+</dl>
+</dd>
+<dt><cite>connection_keyword</cite><span class="classifier">str or None</span></dt><dd><p>If not None (the default), the decorated method will receive
+the <cite>dbus.connection.Connection</cite> as a keyword argument
+with this name. This is generally only useful for objects
+that are available on more than one connection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Since</dt>
+<dd class="field-odd"><p>0.82.0</p>
+</dd>
+</dl>
+</dd>
+<dt><cite>utf8_strings</cite><span class="classifier">bool</span></dt><dd><p>If False (default), D-Bus strings are passed to the decorated
+method as objects of class dbus.String, a unicode subclass.</p>
+<p>If True, D-Bus strings are passed to the decorated method
+as objects of class dbus.UTF8String, a str subclass guaranteed
+to be encoded in UTF-8.</p>
+<p>This option does not affect object-paths and signatures, which
+are always 8-bit strings (str subclass) encoded in ASCII.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Since</dt>
+<dd class="field-odd"><p>0.80.0</p>
+</dd>
+</dl>
+</dd>
+<dt><cite>byte_arrays</cite><span class="classifier">bool</span></dt><dd><p>If False (default), a byte array will be passed to the decorated
+method as an <cite>Array</cite> (a list subclass) of <cite>Byte</cite> objects.</p>
+<p>If True, a byte array will be passed to the decorated method as
+a <cite>ByteArray</cite>, a str subclass. This is usually what you want,
+but is switched off by default to keep dbus-python’s API
+consistent.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Since</dt>
+<dd class="field-odd"><p>0.80.0</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dbus.decorators.signal">
+<span class="sig-prename descclassname"><span class="pre">dbus.decorators.</span></span><span class="sig-name descname"><span class="pre">signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dbus_interface</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_keyword</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_path_keyword</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.decorators.signal" title="Permalink to this definition"></a></dt>
+<dd><p>Factory for decorators used to mark methods of a <cite>dbus.service.Object</cite>
+to emit signals on the D-Bus.</p>
+<p>Whenever the decorated method is called in Python, after the method
+body is executed, a signal with the same name as the decorated method,
+with the given D-Bus interface, will be emitted from this object.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><cite>dbus_interface</cite><span class="classifier">str</span></dt><dd><p>The D-Bus interface whose signal is emitted</p>
+</dd>
+<dt><cite>signature</cite><span class="classifier">str</span></dt><dd><p>The signature of the signal in the usual D-Bus notation</p>
+</dd>
+<dt><cite>path_keyword</cite><span class="classifier">str or None</span></dt><dd><p>A keyword argument to the decorated method. If not None,
+that argument will not be emitted as an argument of
+the signal, and when the signal is emitted, it will appear
+to come from the object path given by the keyword argument.</p>
+<p>Note that when calling the decorated method, you must always
+pass in the object path as a keyword argument, not as a
+positional argument.</p>
+<p>This keyword argument cannot be used on objects where
+the class attribute <code class="docutils literal notranslate"><span class="pre">SUPPORTS_MULTIPLE_OBJECT_PATHS</span></code> is true.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Deprecated</dt>
+<dd class="field-odd"><p>since 0.82.0. Use <cite>rel_path_keyword</cite> instead.</p>
+</dd>
+</dl>
+</dd>
+<dt><cite>rel_path_keyword</cite><span class="classifier">str or None</span></dt><dd><p>A keyword argument to the decorated method. If not None,
+that argument will not be emitted as an argument of
+the signal.</p>
+<p>When the signal is emitted, if the named keyword argument is given,
+the signal will appear to come from the object path obtained by
+appending the keyword argument to the object’s object path.
+This is useful to implement “fallback objects” (objects which
+own an entire subtree of the object-path tree).</p>
+<p>If the object is available at more than one object-path on the
+same or different connections, the signal will be emitted at
+an appropriate object-path on each connection - for instance,
+if the object is exported at /abc on connection 1 and at
+/def and /x/y/z on connection 2, and the keyword argument is
+/foo, then signals will be emitted from /abc/foo and /def/foo
+on connection 1, and /x/y/z/foo on connection 2.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Since</dt>
+<dd class="field-odd"><p>0.82.0</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="dbus.connection.html" class="btn btn-neutral float-left" title="dbus.connection module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dbus.exceptions.html" class="btn btn-neutral float-right" title="dbus.exceptions module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2003-2018, D-Bus contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

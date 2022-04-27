@@ -1,0 +1,2076 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dbus.lowlevel module &mdash; dbus-python 1.2.18 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="dbus.mainloop package" href="dbus.mainloop.html" />
+    <link rel="prev" title="dbus.gi_service module" href="dbus.gi_service.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> dbus-python
+          </a>
+              <div class="version">
+                1.2.18
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">dbus-python tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="dbus.html">dbus package API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="dbus.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="dbus.bus.html">dbus.bus module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.connection.html">dbus.connection module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.decorators.html">dbus.decorators module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.exceptions.html">dbus.exceptions module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.gi_service.html">dbus.gi_service module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">dbus.lowlevel module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.mainloop.html">dbus.mainloop package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.proxies.html">dbus.proxies module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.server.html">dbus.server module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.service.html">dbus.service module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.types.html">dbus.types module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dbus.html#deprecated-submodules">Deprecated submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dbus.html#module-dbus">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PY3PORT.html">Porting to Python 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="news.html">Release history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="API_CHANGES.html">API changes in dbus-python 0.80</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">dbus-python</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="dbus.html">dbus package API reference</a> &raquo;</li>
+      <li>dbus.lowlevel module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/dbus.lowlevel.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-dbus.lowlevel">
+<span id="dbus-lowlevel-module"></span><h1>dbus.lowlevel module<a class="headerlink" href="#module-dbus.lowlevel" title="Permalink to this headline"></a></h1>
+<p>Low-level interface to D-Bus.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dbus.lowlevel.</span></span><span class="sig-name descname"><span class="pre">ErrorMessage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reply_to</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dbus.lowlevel.Message" title="dbus.lowlevel.Message"><span class="pre">Message</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dbus.lowlevel.Message" title="dbus.lowlevel.Message"><code class="xref py py-class docutils literal notranslate"><span class="pre">dbus.lowlevel.Message</span></code></a></p>
+<p>An error message.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.append" title="Permalink to this definition"></a></dt>
+<dd><p>Set the message’s arguments from the positional parameter, according to
+the signature given by the <code class="docutils literal notranslate"><span class="pre">signature</span></code> keyword parameter.</p>
+<p>The following type conversions are supported:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>D-Bus (in signature)</p></th>
+<th class="head"><p>Python</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>boolean (b)</p></td>
+<td><p>any object (via bool())</p></td>
+</tr>
+<tr class="row-odd"><td><p>byte (y)</p></td>
+<td><p>string of length 1
+any integer</p></td>
+</tr>
+<tr class="row-even"><td><p>any integer type</p></td>
+<td><p>any integer</p></td>
+</tr>
+<tr class="row-odd"><td><p>double (d)</p></td>
+<td><p>any float</p></td>
+</tr>
+<tr class="row-even"><td><p>object path</p></td>
+<td><p>anything with a __dbus_object_path__ attribute</p></td>
+</tr>
+<tr class="row-odd"><td><p>string, signature, object path</p></td>
+<td><p>str (must be UTF-8) or unicode</p></td>
+</tr>
+<tr class="row-even"><td><p>dict (a{…})</p></td>
+<td><p>any mapping</p></td>
+</tr>
+<tr class="row-odd"><td><p>array (a…)</p></td>
+<td><p>any iterable over appropriate objects</p></td>
+</tr>
+<tr class="row-even"><td><p>struct ((…))</p></td>
+<td><p>any iterable over appropriate objects</p></td>
+</tr>
+<tr class="row-odd"><td><p>variant</p></td>
+<td><p>any object above (guess type as below)</p></td>
+</tr>
+</tbody>
+</table>
+<p>Here ‘any integer’ means anything on which int() or long()
+(as appropriate) will work, except for basestring subclasses.
+‘Any float’ means anything on which float() will work, except
+for basestring subclasses.</p>
+<p>If there is no signature, guess from the arguments using
+the static method <cite>Message.guess_signature</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">)</span> <span class="pre">-&gt;</span> <span class="pre">Message</span> <span class="pre">(or</span> <span class="pre">subclass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.copy" title="Permalink to this definition"></a></dt>
+<dd><p>Deep-copy the message, resetting the serial number to zero.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.get_args_list">
+<span class="sig-name descname"><span class="pre">get_args_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.get_args_list" title="Permalink to this definition"></a></dt>
+<dd><p>Return the message’s arguments. Keyword arguments control the translation
+of D-Bus types to Python:</p>
+<dl class="field-list">
+<dt class="field-odd">Keywords</dt>
+<dd class="field-odd"><dl>
+<dt><cite>byte_arrays</cite><span class="classifier">bool</span></dt><dd><p>If true, convert arrays of byte (signature ‘ay’) into dbus.ByteArray,
+a str subclass. In practice, this is usually what you want, but
+it’s off by default for consistency.</p>
+<p>If false (default), convert them into a dbus.Array of Bytes.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Most of the type mappings should be fairly obvious:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 79%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>D-Bus</p></th>
+<th class="head"><p>Python</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte (y)</p></td>
+<td><p>dbus.Byte (int subclass)</p></td>
+</tr>
+<tr class="row-odd"><td><p>bool (b)</p></td>
+<td><p>dbus.Boolean (int subclass)</p></td>
+</tr>
+<tr class="row-even"><td><p>Signature (g)</p></td>
+<td><p>dbus.Signature (str subclass)</p></td>
+</tr>
+<tr class="row-odd"><td><p>intNN, uintNN</p></td>
+<td><p>dbus.IntNN, dbus.UIntNN (int or long subclasses)</p></td>
+</tr>
+<tr class="row-even"><td><p>double (d)</p></td>
+<td><p>dbus.Double</p></td>
+</tr>
+<tr class="row-odd"><td><p>string (s)</p></td>
+<td><p>dbus.String (unicode subclass)
+(or dbus.UTF8String, bytes subclass, if utf8_strings set)</p></td>
+</tr>
+<tr class="row-even"><td><p>Object path (o)</p></td>
+<td><p>dbus.ObjectPath (str subclass)</p></td>
+</tr>
+<tr class="row-odd"><td><p>dict (a{…})</p></td>
+<td><p>dbus.Dictionary</p></td>
+</tr>
+<tr class="row-even"><td><p>array (a…)</p></td>
+<td><p>dbus.Array (list subclass) containing appropriate types</p></td>
+</tr>
+<tr class="row-odd"><td><p>byte array (ay)</p></td>
+<td><p>dbus.ByteArray (str subclass) if byte_arrays set; or
+list of Byte</p></td>
+</tr>
+<tr class="row-even"><td><p>struct ((…))</p></td>
+<td><p>dbus.Struct (tuple subclass) of appropriate types</p></td>
+</tr>
+<tr class="row-odd"><td><p>variant (v)</p></td>
+<td><p>contained type, but with variant_level &gt; 0</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.get_auto_start">
+<span class="sig-name descname"><span class="pre">get_auto_start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.get_auto_start" title="Permalink to this definition"></a></dt>
+<dd><p>Return true if this message will cause an owner for the destination name
+to be auto-started.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.get_destination">
+<span class="sig-name descname"><span class="pre">get_destination</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.get_destination" title="Permalink to this definition"></a></dt>
+<dd><p>Return the message’s destination bus name, or None if none.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.get_error_name">
+<span class="sig-name descname"><span class="pre">get_error_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.get_error_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.get_interface">
+<span class="sig-name descname"><span class="pre">get_interface</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.get_interface" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.get_member">
+<span class="sig-name descname"><span class="pre">get_member</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.get_member" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.get_no_reply">
+<span class="sig-name descname"><span class="pre">get_no_reply</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.get_no_reply" title="Permalink to this definition"></a></dt>
+<dd><p>Return true if this message need not be replied to.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.get_path">
+<span class="sig-name descname"><span class="pre">get_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ObjectPath</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.get_path" title="Permalink to this definition"></a></dt>
+<dd><p>Return the message’s destination object path (if it’s a method call) or
+source object path (if it’s a method reply or a signal) or None (if it
+has no path).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.get_path_decomposed">
+<span class="sig-name descname"><span class="pre">get_path_decomposed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span> <span class="pre">of</span> <span class="pre">str,</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.get_path_decomposed" title="Permalink to this definition"></a></dt>
+<dd><p>Return a list of path components (e.g. /foo/bar -&gt; [‘foo’,’bar’], / -&gt; [])
+or None if the message has no associated path.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.get_reply_serial">
+<span class="sig-name descname"><span class="pre">get_reply_serial</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">long</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.get_reply_serial" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the serial that the message is a reply to or 0 if none.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.get_sender">
+<span class="sig-name descname"><span class="pre">get_sender</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.get_sender" title="Permalink to this definition"></a></dt>
+<dd><p>Return the message’s sender unique name, or None if none.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.get_serial">
+<span class="sig-name descname"><span class="pre">get_serial</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">long</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.get_serial" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the serial of a message or 0 if none has been specified.</p>
+<p>The message’s serial number is provided by the application sending the
+message and is used to identify replies to this message. All messages
+received on a connection will have a serial, but messages you haven’t
+sent yet may return 0.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.get_signature">
+<span class="sig-name descname"><span class="pre">get_signature</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Signature</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.get_signature" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.get_type">
+<span class="sig-name descname"><span class="pre">get_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.get_type" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the type of the message.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.guess_signature">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">guess_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Signature</span> <span class="pre">[static</span> <span class="pre">method]</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.guess_signature" title="Permalink to this definition"></a></dt>
+<dd><p>Guess a D-Bus signature which should be used to encode the given
+Python objects.</p>
+<p>The signature is constructed as follows:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 53%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Python</p></th>
+<th class="head"><p>D-Bus</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>D-Bus type, variant_level &gt; 0</p></td>
+<td><p>variant (v)</p></td>
+</tr>
+<tr class="row-odd"><td><p>D-Bus type, variant_level == 0</p></td>
+<td><p>the corresponding type</p></td>
+</tr>
+<tr class="row-even"><td><p>anything with a
+__dbus_object_path__ attribute</p></td>
+<td><p>object path</p></td>
+</tr>
+<tr class="row-odd"><td><p>bool</p></td>
+<td><p>boolean (y)</p></td>
+</tr>
+<tr class="row-even"><td><p>any other int subclass</p></td>
+<td><p>int32 (i)</p></td>
+</tr>
+<tr class="row-odd"><td><p>any other long subclass</p></td>
+<td><p>int64 (x)</p></td>
+</tr>
+<tr class="row-even"><td><p>any other float subclass</p></td>
+<td><p>double (d)</p></td>
+</tr>
+<tr class="row-odd"><td><p>any other str subclass</p></td>
+<td><p>string (s)</p></td>
+</tr>
+<tr class="row-even"><td><p>any other unicode subclass</p></td>
+<td><p>string (s)</p></td>
+</tr>
+<tr class="row-odd"><td><p>any other tuple subclass</p></td>
+<td><p>struct ((…))</p></td>
+</tr>
+<tr class="row-even"><td><p>any other list subclass</p></td>
+<td><p>array (a…), guess
+contents’ type according to
+type of first item</p></td>
+</tr>
+<tr class="row-odd"><td><p>any other dict subclass</p></td>
+<td><p>dict (a{…}), guess key,
+value type according to
+types for an arbitrary item</p></td>
+</tr>
+<tr class="row-even"><td><p>anything else</p></td>
+<td><p>raise TypeError</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.has_destination">
+<span class="sig-name descname"><span class="pre">has_destination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bus_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.has_destination" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.has_interface">
+<span class="sig-name descname"><span class="pre">has_interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.has_interface" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.has_member">
+<span class="sig-name descname"><span class="pre">has_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.has_member" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.has_path">
+<span class="sig-name descname"><span class="pre">has_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.has_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.has_sender">
+<span class="sig-name descname"><span class="pre">has_sender</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unique_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.has_sender" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.has_signature">
+<span class="sig-name descname"><span class="pre">has_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.has_signature" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.is_error">
+<span class="sig-name descname"><span class="pre">is_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.is_error" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.is_method_call">
+<span class="sig-name descname"><span class="pre">is_method_call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.is_method_call" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.is_signal">
+<span class="sig-name descname"><span class="pre">is_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.is_signal" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.set_auto_start">
+<span class="sig-name descname"><span class="pre">set_auto_start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.set_auto_start" title="Permalink to this definition"></a></dt>
+<dd><p>Set whether this message will cause an owner for the destination name
+to be auto-started.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.set_destination">
+<span class="sig-name descname"><span class="pre">set_destination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bus_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.set_destination" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.set_error_name">
+<span class="sig-name descname"><span class="pre">set_error_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.set_error_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.set_interface">
+<span class="sig-name descname"><span class="pre">set_interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.set_interface" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.set_member">
+<span class="sig-name descname"><span class="pre">set_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unique_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.set_member" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.set_no_reply">
+<span class="sig-name descname"><span class="pre">set_no_reply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.set_no_reply" title="Permalink to this definition"></a></dt>
+<dd><p>Set whether no reply to this message is required.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.set_path">
+<span class="sig-name descname"><span class="pre">set_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.set_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.set_reply_serial">
+<span class="sig-name descname"><span class="pre">set_reply_serial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.set_reply_serial" title="Permalink to this definition"></a></dt>
+<dd><p>Set the serial that this message is a reply to.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.ErrorMessage.set_sender">
+<span class="sig-name descname"><span class="pre">set_sender</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unique_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.ErrorMessage.set_sender" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dbus.lowlevel.</span></span><span class="sig-name descname"><span class="pre">Message</span></span><a class="headerlink" href="#dbus.lowlevel.Message" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A message to be sent or received over a D-Bus Connection.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.Message.append" title="Permalink to this definition"></a></dt>
+<dd><p>Set the message’s arguments from the positional parameter, according to
+the signature given by the <code class="docutils literal notranslate"><span class="pre">signature</span></code> keyword parameter.</p>
+<p>The following type conversions are supported:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>D-Bus (in signature)</p></th>
+<th class="head"><p>Python</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>boolean (b)</p></td>
+<td><p>any object (via bool())</p></td>
+</tr>
+<tr class="row-odd"><td><p>byte (y)</p></td>
+<td><p>string of length 1
+any integer</p></td>
+</tr>
+<tr class="row-even"><td><p>any integer type</p></td>
+<td><p>any integer</p></td>
+</tr>
+<tr class="row-odd"><td><p>double (d)</p></td>
+<td><p>any float</p></td>
+</tr>
+<tr class="row-even"><td><p>object path</p></td>
+<td><p>anything with a __dbus_object_path__ attribute</p></td>
+</tr>
+<tr class="row-odd"><td><p>string, signature, object path</p></td>
+<td><p>str (must be UTF-8) or unicode</p></td>
+</tr>
+<tr class="row-even"><td><p>dict (a{…})</p></td>
+<td><p>any mapping</p></td>
+</tr>
+<tr class="row-odd"><td><p>array (a…)</p></td>
+<td><p>any iterable over appropriate objects</p></td>
+</tr>
+<tr class="row-even"><td><p>struct ((…))</p></td>
+<td><p>any iterable over appropriate objects</p></td>
+</tr>
+<tr class="row-odd"><td><p>variant</p></td>
+<td><p>any object above (guess type as below)</p></td>
+</tr>
+</tbody>
+</table>
+<p>Here ‘any integer’ means anything on which int() or long()
+(as appropriate) will work, except for basestring subclasses.
+‘Any float’ means anything on which float() will work, except
+for basestring subclasses.</p>
+<p>If there is no signature, guess from the arguments using
+the static method <cite>Message.guess_signature</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">)</span> <span class="pre">-&gt;</span> <span class="pre">Message</span> <span class="pre">(or</span> <span class="pre">subclass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.Message.copy" title="Permalink to this definition"></a></dt>
+<dd><p>Deep-copy the message, resetting the serial number to zero.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.get_args_list">
+<span class="sig-name descname"><span class="pre">get_args_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.get_args_list" title="Permalink to this definition"></a></dt>
+<dd><p>Return the message’s arguments. Keyword arguments control the translation
+of D-Bus types to Python:</p>
+<dl class="field-list">
+<dt class="field-odd">Keywords</dt>
+<dd class="field-odd"><dl>
+<dt><cite>byte_arrays</cite><span class="classifier">bool</span></dt><dd><p>If true, convert arrays of byte (signature ‘ay’) into dbus.ByteArray,
+a str subclass. In practice, this is usually what you want, but
+it’s off by default for consistency.</p>
+<p>If false (default), convert them into a dbus.Array of Bytes.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Most of the type mappings should be fairly obvious:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 79%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>D-Bus</p></th>
+<th class="head"><p>Python</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte (y)</p></td>
+<td><p>dbus.Byte (int subclass)</p></td>
+</tr>
+<tr class="row-odd"><td><p>bool (b)</p></td>
+<td><p>dbus.Boolean (int subclass)</p></td>
+</tr>
+<tr class="row-even"><td><p>Signature (g)</p></td>
+<td><p>dbus.Signature (str subclass)</p></td>
+</tr>
+<tr class="row-odd"><td><p>intNN, uintNN</p></td>
+<td><p>dbus.IntNN, dbus.UIntNN (int or long subclasses)</p></td>
+</tr>
+<tr class="row-even"><td><p>double (d)</p></td>
+<td><p>dbus.Double</p></td>
+</tr>
+<tr class="row-odd"><td><p>string (s)</p></td>
+<td><p>dbus.String (unicode subclass)
+(or dbus.UTF8String, bytes subclass, if utf8_strings set)</p></td>
+</tr>
+<tr class="row-even"><td><p>Object path (o)</p></td>
+<td><p>dbus.ObjectPath (str subclass)</p></td>
+</tr>
+<tr class="row-odd"><td><p>dict (a{…})</p></td>
+<td><p>dbus.Dictionary</p></td>
+</tr>
+<tr class="row-even"><td><p>array (a…)</p></td>
+<td><p>dbus.Array (list subclass) containing appropriate types</p></td>
+</tr>
+<tr class="row-odd"><td><p>byte array (ay)</p></td>
+<td><p>dbus.ByteArray (str subclass) if byte_arrays set; or
+list of Byte</p></td>
+</tr>
+<tr class="row-even"><td><p>struct ((…))</p></td>
+<td><p>dbus.Struct (tuple subclass) of appropriate types</p></td>
+</tr>
+<tr class="row-odd"><td><p>variant (v)</p></td>
+<td><p>contained type, but with variant_level &gt; 0</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.get_auto_start">
+<span class="sig-name descname"><span class="pre">get_auto_start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.get_auto_start" title="Permalink to this definition"></a></dt>
+<dd><p>Return true if this message will cause an owner for the destination name
+to be auto-started.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.get_destination">
+<span class="sig-name descname"><span class="pre">get_destination</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.get_destination" title="Permalink to this definition"></a></dt>
+<dd><p>Return the message’s destination bus name, or None if none.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.get_error_name">
+<span class="sig-name descname"><span class="pre">get_error_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.get_error_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.get_interface">
+<span class="sig-name descname"><span class="pre">get_interface</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.get_interface" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.get_member">
+<span class="sig-name descname"><span class="pre">get_member</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.get_member" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.get_no_reply">
+<span class="sig-name descname"><span class="pre">get_no_reply</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.get_no_reply" title="Permalink to this definition"></a></dt>
+<dd><p>Return true if this message need not be replied to.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.get_path">
+<span class="sig-name descname"><span class="pre">get_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ObjectPath</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.get_path" title="Permalink to this definition"></a></dt>
+<dd><p>Return the message’s destination object path (if it’s a method call) or
+source object path (if it’s a method reply or a signal) or None (if it
+has no path).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.get_path_decomposed">
+<span class="sig-name descname"><span class="pre">get_path_decomposed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span> <span class="pre">of</span> <span class="pre">str,</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.get_path_decomposed" title="Permalink to this definition"></a></dt>
+<dd><p>Return a list of path components (e.g. /foo/bar -&gt; [‘foo’,’bar’], / -&gt; [])
+or None if the message has no associated path.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.get_reply_serial">
+<span class="sig-name descname"><span class="pre">get_reply_serial</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">long</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.get_reply_serial" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the serial that the message is a reply to or 0 if none.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.get_sender">
+<span class="sig-name descname"><span class="pre">get_sender</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.get_sender" title="Permalink to this definition"></a></dt>
+<dd><p>Return the message’s sender unique name, or None if none.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.get_serial">
+<span class="sig-name descname"><span class="pre">get_serial</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">long</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.get_serial" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the serial of a message or 0 if none has been specified.</p>
+<p>The message’s serial number is provided by the application sending the
+message and is used to identify replies to this message. All messages
+received on a connection will have a serial, but messages you haven’t
+sent yet may return 0.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.get_signature">
+<span class="sig-name descname"><span class="pre">get_signature</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Signature</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.get_signature" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.get_type">
+<span class="sig-name descname"><span class="pre">get_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.get_type" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the type of the message.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.guess_signature">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">guess_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Signature</span> <span class="pre">[static</span> <span class="pre">method]</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.guess_signature" title="Permalink to this definition"></a></dt>
+<dd><p>Guess a D-Bus signature which should be used to encode the given
+Python objects.</p>
+<p>The signature is constructed as follows:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 53%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Python</p></th>
+<th class="head"><p>D-Bus</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>D-Bus type, variant_level &gt; 0</p></td>
+<td><p>variant (v)</p></td>
+</tr>
+<tr class="row-odd"><td><p>D-Bus type, variant_level == 0</p></td>
+<td><p>the corresponding type</p></td>
+</tr>
+<tr class="row-even"><td><p>anything with a
+__dbus_object_path__ attribute</p></td>
+<td><p>object path</p></td>
+</tr>
+<tr class="row-odd"><td><p>bool</p></td>
+<td><p>boolean (y)</p></td>
+</tr>
+<tr class="row-even"><td><p>any other int subclass</p></td>
+<td><p>int32 (i)</p></td>
+</tr>
+<tr class="row-odd"><td><p>any other long subclass</p></td>
+<td><p>int64 (x)</p></td>
+</tr>
+<tr class="row-even"><td><p>any other float subclass</p></td>
+<td><p>double (d)</p></td>
+</tr>
+<tr class="row-odd"><td><p>any other str subclass</p></td>
+<td><p>string (s)</p></td>
+</tr>
+<tr class="row-even"><td><p>any other unicode subclass</p></td>
+<td><p>string (s)</p></td>
+</tr>
+<tr class="row-odd"><td><p>any other tuple subclass</p></td>
+<td><p>struct ((…))</p></td>
+</tr>
+<tr class="row-even"><td><p>any other list subclass</p></td>
+<td><p>array (a…), guess
+contents’ type according to
+type of first item</p></td>
+</tr>
+<tr class="row-odd"><td><p>any other dict subclass</p></td>
+<td><p>dict (a{…}), guess key,
+value type according to
+types for an arbitrary item</p></td>
+</tr>
+<tr class="row-even"><td><p>anything else</p></td>
+<td><p>raise TypeError</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.has_destination">
+<span class="sig-name descname"><span class="pre">has_destination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bus_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.has_destination" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.has_interface">
+<span class="sig-name descname"><span class="pre">has_interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.has_interface" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.has_member">
+<span class="sig-name descname"><span class="pre">has_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.has_member" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.has_path">
+<span class="sig-name descname"><span class="pre">has_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.has_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.has_sender">
+<span class="sig-name descname"><span class="pre">has_sender</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unique_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.has_sender" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.has_signature">
+<span class="sig-name descname"><span class="pre">has_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.has_signature" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.is_error">
+<span class="sig-name descname"><span class="pre">is_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.is_error" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.is_method_call">
+<span class="sig-name descname"><span class="pre">is_method_call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.is_method_call" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.is_signal">
+<span class="sig-name descname"><span class="pre">is_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.is_signal" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.set_auto_start">
+<span class="sig-name descname"><span class="pre">set_auto_start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.set_auto_start" title="Permalink to this definition"></a></dt>
+<dd><p>Set whether this message will cause an owner for the destination name
+to be auto-started.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.set_destination">
+<span class="sig-name descname"><span class="pre">set_destination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bus_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.Message.set_destination" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.set_error_name">
+<span class="sig-name descname"><span class="pre">set_error_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.Message.set_error_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.set_interface">
+<span class="sig-name descname"><span class="pre">set_interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.Message.set_interface" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.set_member">
+<span class="sig-name descname"><span class="pre">set_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unique_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.Message.set_member" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.set_no_reply">
+<span class="sig-name descname"><span class="pre">set_no_reply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.set_no_reply" title="Permalink to this definition"></a></dt>
+<dd><p>Set whether no reply to this message is required.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.set_path">
+<span class="sig-name descname"><span class="pre">set_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.Message.set_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.set_reply_serial">
+<span class="sig-name descname"><span class="pre">set_reply_serial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.Message.set_reply_serial" title="Permalink to this definition"></a></dt>
+<dd><p>Set the serial that this message is a reply to.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.Message.set_sender">
+<span class="sig-name descname"><span class="pre">set_sender</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unique_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.Message.set_sender" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dbus.lowlevel.</span></span><span class="sig-name descname"><span class="pre">MethodCallMessage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">destination</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dbus.lowlevel.Message" title="dbus.lowlevel.Message"><code class="xref py py-class docutils literal notranslate"><span class="pre">dbus.lowlevel.Message</span></code></a></p>
+<p>A method-call message.</p>
+<p><code class="docutils literal notranslate"><span class="pre">destination</span></code> is the destination bus name, or None to send the
+message directly to the peer (usually the bus daemon).</p>
+<p><code class="docutils literal notranslate"><span class="pre">path</span></code> is the object-path of the object whose method is to be called.</p>
+<p><code class="docutils literal notranslate"><span class="pre">interface</span></code> is the interface qualifying the method name, or None to omit
+the interface from the message header.</p>
+<p><code class="docutils literal notranslate"><span class="pre">method</span></code> is the method name (member name).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.append" title="Permalink to this definition"></a></dt>
+<dd><p>Set the message’s arguments from the positional parameter, according to
+the signature given by the <code class="docutils literal notranslate"><span class="pre">signature</span></code> keyword parameter.</p>
+<p>The following type conversions are supported:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>D-Bus (in signature)</p></th>
+<th class="head"><p>Python</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>boolean (b)</p></td>
+<td><p>any object (via bool())</p></td>
+</tr>
+<tr class="row-odd"><td><p>byte (y)</p></td>
+<td><p>string of length 1
+any integer</p></td>
+</tr>
+<tr class="row-even"><td><p>any integer type</p></td>
+<td><p>any integer</p></td>
+</tr>
+<tr class="row-odd"><td><p>double (d)</p></td>
+<td><p>any float</p></td>
+</tr>
+<tr class="row-even"><td><p>object path</p></td>
+<td><p>anything with a __dbus_object_path__ attribute</p></td>
+</tr>
+<tr class="row-odd"><td><p>string, signature, object path</p></td>
+<td><p>str (must be UTF-8) or unicode</p></td>
+</tr>
+<tr class="row-even"><td><p>dict (a{…})</p></td>
+<td><p>any mapping</p></td>
+</tr>
+<tr class="row-odd"><td><p>array (a…)</p></td>
+<td><p>any iterable over appropriate objects</p></td>
+</tr>
+<tr class="row-even"><td><p>struct ((…))</p></td>
+<td><p>any iterable over appropriate objects</p></td>
+</tr>
+<tr class="row-odd"><td><p>variant</p></td>
+<td><p>any object above (guess type as below)</p></td>
+</tr>
+</tbody>
+</table>
+<p>Here ‘any integer’ means anything on which int() or long()
+(as appropriate) will work, except for basestring subclasses.
+‘Any float’ means anything on which float() will work, except
+for basestring subclasses.</p>
+<p>If there is no signature, guess from the arguments using
+the static method <cite>Message.guess_signature</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">)</span> <span class="pre">-&gt;</span> <span class="pre">Message</span> <span class="pre">(or</span> <span class="pre">subclass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.copy" title="Permalink to this definition"></a></dt>
+<dd><p>Deep-copy the message, resetting the serial number to zero.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.get_args_list">
+<span class="sig-name descname"><span class="pre">get_args_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.get_args_list" title="Permalink to this definition"></a></dt>
+<dd><p>Return the message’s arguments. Keyword arguments control the translation
+of D-Bus types to Python:</p>
+<dl class="field-list">
+<dt class="field-odd">Keywords</dt>
+<dd class="field-odd"><dl>
+<dt><cite>byte_arrays</cite><span class="classifier">bool</span></dt><dd><p>If true, convert arrays of byte (signature ‘ay’) into dbus.ByteArray,
+a str subclass. In practice, this is usually what you want, but
+it’s off by default for consistency.</p>
+<p>If false (default), convert them into a dbus.Array of Bytes.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Most of the type mappings should be fairly obvious:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 79%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>D-Bus</p></th>
+<th class="head"><p>Python</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte (y)</p></td>
+<td><p>dbus.Byte (int subclass)</p></td>
+</tr>
+<tr class="row-odd"><td><p>bool (b)</p></td>
+<td><p>dbus.Boolean (int subclass)</p></td>
+</tr>
+<tr class="row-even"><td><p>Signature (g)</p></td>
+<td><p>dbus.Signature (str subclass)</p></td>
+</tr>
+<tr class="row-odd"><td><p>intNN, uintNN</p></td>
+<td><p>dbus.IntNN, dbus.UIntNN (int or long subclasses)</p></td>
+</tr>
+<tr class="row-even"><td><p>double (d)</p></td>
+<td><p>dbus.Double</p></td>
+</tr>
+<tr class="row-odd"><td><p>string (s)</p></td>
+<td><p>dbus.String (unicode subclass)
+(or dbus.UTF8String, bytes subclass, if utf8_strings set)</p></td>
+</tr>
+<tr class="row-even"><td><p>Object path (o)</p></td>
+<td><p>dbus.ObjectPath (str subclass)</p></td>
+</tr>
+<tr class="row-odd"><td><p>dict (a{…})</p></td>
+<td><p>dbus.Dictionary</p></td>
+</tr>
+<tr class="row-even"><td><p>array (a…)</p></td>
+<td><p>dbus.Array (list subclass) containing appropriate types</p></td>
+</tr>
+<tr class="row-odd"><td><p>byte array (ay)</p></td>
+<td><p>dbus.ByteArray (str subclass) if byte_arrays set; or
+list of Byte</p></td>
+</tr>
+<tr class="row-even"><td><p>struct ((…))</p></td>
+<td><p>dbus.Struct (tuple subclass) of appropriate types</p></td>
+</tr>
+<tr class="row-odd"><td><p>variant (v)</p></td>
+<td><p>contained type, but with variant_level &gt; 0</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.get_auto_start">
+<span class="sig-name descname"><span class="pre">get_auto_start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.get_auto_start" title="Permalink to this definition"></a></dt>
+<dd><p>Return true if this message will cause an owner for the destination name
+to be auto-started.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.get_destination">
+<span class="sig-name descname"><span class="pre">get_destination</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.get_destination" title="Permalink to this definition"></a></dt>
+<dd><p>Return the message’s destination bus name, or None if none.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.get_error_name">
+<span class="sig-name descname"><span class="pre">get_error_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.get_error_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.get_interface">
+<span class="sig-name descname"><span class="pre">get_interface</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.get_interface" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.get_member">
+<span class="sig-name descname"><span class="pre">get_member</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.get_member" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.get_no_reply">
+<span class="sig-name descname"><span class="pre">get_no_reply</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.get_no_reply" title="Permalink to this definition"></a></dt>
+<dd><p>Return true if this message need not be replied to.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.get_path">
+<span class="sig-name descname"><span class="pre">get_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ObjectPath</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.get_path" title="Permalink to this definition"></a></dt>
+<dd><p>Return the message’s destination object path (if it’s a method call) or
+source object path (if it’s a method reply or a signal) or None (if it
+has no path).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.get_path_decomposed">
+<span class="sig-name descname"><span class="pre">get_path_decomposed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span> <span class="pre">of</span> <span class="pre">str,</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.get_path_decomposed" title="Permalink to this definition"></a></dt>
+<dd><p>Return a list of path components (e.g. /foo/bar -&gt; [‘foo’,’bar’], / -&gt; [])
+or None if the message has no associated path.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.get_reply_serial">
+<span class="sig-name descname"><span class="pre">get_reply_serial</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">long</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.get_reply_serial" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the serial that the message is a reply to or 0 if none.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.get_sender">
+<span class="sig-name descname"><span class="pre">get_sender</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.get_sender" title="Permalink to this definition"></a></dt>
+<dd><p>Return the message’s sender unique name, or None if none.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.get_serial">
+<span class="sig-name descname"><span class="pre">get_serial</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">long</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.get_serial" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the serial of a message or 0 if none has been specified.</p>
+<p>The message’s serial number is provided by the application sending the
+message and is used to identify replies to this message. All messages
+received on a connection will have a serial, but messages you haven’t
+sent yet may return 0.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.get_signature">
+<span class="sig-name descname"><span class="pre">get_signature</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Signature</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.get_signature" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.get_type">
+<span class="sig-name descname"><span class="pre">get_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.get_type" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the type of the message.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.guess_signature">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">guess_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Signature</span> <span class="pre">[static</span> <span class="pre">method]</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.guess_signature" title="Permalink to this definition"></a></dt>
+<dd><p>Guess a D-Bus signature which should be used to encode the given
+Python objects.</p>
+<p>The signature is constructed as follows:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 53%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Python</p></th>
+<th class="head"><p>D-Bus</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>D-Bus type, variant_level &gt; 0</p></td>
+<td><p>variant (v)</p></td>
+</tr>
+<tr class="row-odd"><td><p>D-Bus type, variant_level == 0</p></td>
+<td><p>the corresponding type</p></td>
+</tr>
+<tr class="row-even"><td><p>anything with a
+__dbus_object_path__ attribute</p></td>
+<td><p>object path</p></td>
+</tr>
+<tr class="row-odd"><td><p>bool</p></td>
+<td><p>boolean (y)</p></td>
+</tr>
+<tr class="row-even"><td><p>any other int subclass</p></td>
+<td><p>int32 (i)</p></td>
+</tr>
+<tr class="row-odd"><td><p>any other long subclass</p></td>
+<td><p>int64 (x)</p></td>
+</tr>
+<tr class="row-even"><td><p>any other float subclass</p></td>
+<td><p>double (d)</p></td>
+</tr>
+<tr class="row-odd"><td><p>any other str subclass</p></td>
+<td><p>string (s)</p></td>
+</tr>
+<tr class="row-even"><td><p>any other unicode subclass</p></td>
+<td><p>string (s)</p></td>
+</tr>
+<tr class="row-odd"><td><p>any other tuple subclass</p></td>
+<td><p>struct ((…))</p></td>
+</tr>
+<tr class="row-even"><td><p>any other list subclass</p></td>
+<td><p>array (a…), guess
+contents’ type according to
+type of first item</p></td>
+</tr>
+<tr class="row-odd"><td><p>any other dict subclass</p></td>
+<td><p>dict (a{…}), guess key,
+value type according to
+types for an arbitrary item</p></td>
+</tr>
+<tr class="row-even"><td><p>anything else</p></td>
+<td><p>raise TypeError</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.has_destination">
+<span class="sig-name descname"><span class="pre">has_destination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bus_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.has_destination" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.has_interface">
+<span class="sig-name descname"><span class="pre">has_interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.has_interface" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.has_member">
+<span class="sig-name descname"><span class="pre">has_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.has_member" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.has_path">
+<span class="sig-name descname"><span class="pre">has_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.has_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.has_sender">
+<span class="sig-name descname"><span class="pre">has_sender</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unique_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.has_sender" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.has_signature">
+<span class="sig-name descname"><span class="pre">has_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.has_signature" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.is_error">
+<span class="sig-name descname"><span class="pre">is_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.is_error" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.is_method_call">
+<span class="sig-name descname"><span class="pre">is_method_call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.is_method_call" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.is_signal">
+<span class="sig-name descname"><span class="pre">is_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.is_signal" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.set_auto_start">
+<span class="sig-name descname"><span class="pre">set_auto_start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.set_auto_start" title="Permalink to this definition"></a></dt>
+<dd><p>Set whether this message will cause an owner for the destination name
+to be auto-started.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.set_destination">
+<span class="sig-name descname"><span class="pre">set_destination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bus_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.set_destination" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.set_error_name">
+<span class="sig-name descname"><span class="pre">set_error_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.set_error_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.set_interface">
+<span class="sig-name descname"><span class="pre">set_interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.set_interface" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.set_member">
+<span class="sig-name descname"><span class="pre">set_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unique_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.set_member" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.set_no_reply">
+<span class="sig-name descname"><span class="pre">set_no_reply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.set_no_reply" title="Permalink to this definition"></a></dt>
+<dd><p>Set whether no reply to this message is required.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.set_path">
+<span class="sig-name descname"><span class="pre">set_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.set_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.set_reply_serial">
+<span class="sig-name descname"><span class="pre">set_reply_serial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.set_reply_serial" title="Permalink to this definition"></a></dt>
+<dd><p>Set the serial that this message is a reply to.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodCallMessage.set_sender">
+<span class="sig-name descname"><span class="pre">set_sender</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unique_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.MethodCallMessage.set_sender" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dbus.lowlevel.</span></span><span class="sig-name descname"><span class="pre">MethodReturnMessage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method_call</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dbus.lowlevel.MethodCallMessage" title="dbus.lowlevel.MethodCallMessage"><span class="pre">MethodCallMessage</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dbus.lowlevel.Message" title="dbus.lowlevel.Message"><code class="xref py py-class docutils literal notranslate"><span class="pre">dbus.lowlevel.Message</span></code></a></p>
+<p>A method-return message.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.append" title="Permalink to this definition"></a></dt>
+<dd><p>Set the message’s arguments from the positional parameter, according to
+the signature given by the <code class="docutils literal notranslate"><span class="pre">signature</span></code> keyword parameter.</p>
+<p>The following type conversions are supported:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>D-Bus (in signature)</p></th>
+<th class="head"><p>Python</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>boolean (b)</p></td>
+<td><p>any object (via bool())</p></td>
+</tr>
+<tr class="row-odd"><td><p>byte (y)</p></td>
+<td><p>string of length 1
+any integer</p></td>
+</tr>
+<tr class="row-even"><td><p>any integer type</p></td>
+<td><p>any integer</p></td>
+</tr>
+<tr class="row-odd"><td><p>double (d)</p></td>
+<td><p>any float</p></td>
+</tr>
+<tr class="row-even"><td><p>object path</p></td>
+<td><p>anything with a __dbus_object_path__ attribute</p></td>
+</tr>
+<tr class="row-odd"><td><p>string, signature, object path</p></td>
+<td><p>str (must be UTF-8) or unicode</p></td>
+</tr>
+<tr class="row-even"><td><p>dict (a{…})</p></td>
+<td><p>any mapping</p></td>
+</tr>
+<tr class="row-odd"><td><p>array (a…)</p></td>
+<td><p>any iterable over appropriate objects</p></td>
+</tr>
+<tr class="row-even"><td><p>struct ((…))</p></td>
+<td><p>any iterable over appropriate objects</p></td>
+</tr>
+<tr class="row-odd"><td><p>variant</p></td>
+<td><p>any object above (guess type as below)</p></td>
+</tr>
+</tbody>
+</table>
+<p>Here ‘any integer’ means anything on which int() or long()
+(as appropriate) will work, except for basestring subclasses.
+‘Any float’ means anything on which float() will work, except
+for basestring subclasses.</p>
+<p>If there is no signature, guess from the arguments using
+the static method <cite>Message.guess_signature</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">)</span> <span class="pre">-&gt;</span> <span class="pre">Message</span> <span class="pre">(or</span> <span class="pre">subclass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.copy" title="Permalink to this definition"></a></dt>
+<dd><p>Deep-copy the message, resetting the serial number to zero.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.get_args_list">
+<span class="sig-name descname"><span class="pre">get_args_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.get_args_list" title="Permalink to this definition"></a></dt>
+<dd><p>Return the message’s arguments. Keyword arguments control the translation
+of D-Bus types to Python:</p>
+<dl class="field-list">
+<dt class="field-odd">Keywords</dt>
+<dd class="field-odd"><dl>
+<dt><cite>byte_arrays</cite><span class="classifier">bool</span></dt><dd><p>If true, convert arrays of byte (signature ‘ay’) into dbus.ByteArray,
+a str subclass. In practice, this is usually what you want, but
+it’s off by default for consistency.</p>
+<p>If false (default), convert them into a dbus.Array of Bytes.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Most of the type mappings should be fairly obvious:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 79%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>D-Bus</p></th>
+<th class="head"><p>Python</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte (y)</p></td>
+<td><p>dbus.Byte (int subclass)</p></td>
+</tr>
+<tr class="row-odd"><td><p>bool (b)</p></td>
+<td><p>dbus.Boolean (int subclass)</p></td>
+</tr>
+<tr class="row-even"><td><p>Signature (g)</p></td>
+<td><p>dbus.Signature (str subclass)</p></td>
+</tr>
+<tr class="row-odd"><td><p>intNN, uintNN</p></td>
+<td><p>dbus.IntNN, dbus.UIntNN (int or long subclasses)</p></td>
+</tr>
+<tr class="row-even"><td><p>double (d)</p></td>
+<td><p>dbus.Double</p></td>
+</tr>
+<tr class="row-odd"><td><p>string (s)</p></td>
+<td><p>dbus.String (unicode subclass)
+(or dbus.UTF8String, bytes subclass, if utf8_strings set)</p></td>
+</tr>
+<tr class="row-even"><td><p>Object path (o)</p></td>
+<td><p>dbus.ObjectPath (str subclass)</p></td>
+</tr>
+<tr class="row-odd"><td><p>dict (a{…})</p></td>
+<td><p>dbus.Dictionary</p></td>
+</tr>
+<tr class="row-even"><td><p>array (a…)</p></td>
+<td><p>dbus.Array (list subclass) containing appropriate types</p></td>
+</tr>
+<tr class="row-odd"><td><p>byte array (ay)</p></td>
+<td><p>dbus.ByteArray (str subclass) if byte_arrays set; or
+list of Byte</p></td>
+</tr>
+<tr class="row-even"><td><p>struct ((…))</p></td>
+<td><p>dbus.Struct (tuple subclass) of appropriate types</p></td>
+</tr>
+<tr class="row-odd"><td><p>variant (v)</p></td>
+<td><p>contained type, but with variant_level &gt; 0</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.get_auto_start">
+<span class="sig-name descname"><span class="pre">get_auto_start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.get_auto_start" title="Permalink to this definition"></a></dt>
+<dd><p>Return true if this message will cause an owner for the destination name
+to be auto-started.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.get_destination">
+<span class="sig-name descname"><span class="pre">get_destination</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.get_destination" title="Permalink to this definition"></a></dt>
+<dd><p>Return the message’s destination bus name, or None if none.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.get_error_name">
+<span class="sig-name descname"><span class="pre">get_error_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.get_error_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.get_interface">
+<span class="sig-name descname"><span class="pre">get_interface</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.get_interface" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.get_member">
+<span class="sig-name descname"><span class="pre">get_member</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.get_member" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.get_no_reply">
+<span class="sig-name descname"><span class="pre">get_no_reply</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.get_no_reply" title="Permalink to this definition"></a></dt>
+<dd><p>Return true if this message need not be replied to.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.get_path">
+<span class="sig-name descname"><span class="pre">get_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ObjectPath</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.get_path" title="Permalink to this definition"></a></dt>
+<dd><p>Return the message’s destination object path (if it’s a method call) or
+source object path (if it’s a method reply or a signal) or None (if it
+has no path).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.get_path_decomposed">
+<span class="sig-name descname"><span class="pre">get_path_decomposed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span> <span class="pre">of</span> <span class="pre">str,</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.get_path_decomposed" title="Permalink to this definition"></a></dt>
+<dd><p>Return a list of path components (e.g. /foo/bar -&gt; [‘foo’,’bar’], / -&gt; [])
+or None if the message has no associated path.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.get_reply_serial">
+<span class="sig-name descname"><span class="pre">get_reply_serial</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">long</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.get_reply_serial" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the serial that the message is a reply to or 0 if none.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.get_sender">
+<span class="sig-name descname"><span class="pre">get_sender</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.get_sender" title="Permalink to this definition"></a></dt>
+<dd><p>Return the message’s sender unique name, or None if none.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.get_serial">
+<span class="sig-name descname"><span class="pre">get_serial</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">long</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.get_serial" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the serial of a message or 0 if none has been specified.</p>
+<p>The message’s serial number is provided by the application sending the
+message and is used to identify replies to this message. All messages
+received on a connection will have a serial, but messages you haven’t
+sent yet may return 0.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.get_signature">
+<span class="sig-name descname"><span class="pre">get_signature</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Signature</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.get_signature" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.get_type">
+<span class="sig-name descname"><span class="pre">get_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.get_type" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the type of the message.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.guess_signature">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">guess_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Signature</span> <span class="pre">[static</span> <span class="pre">method]</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.guess_signature" title="Permalink to this definition"></a></dt>
+<dd><p>Guess a D-Bus signature which should be used to encode the given
+Python objects.</p>
+<p>The signature is constructed as follows:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 53%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Python</p></th>
+<th class="head"><p>D-Bus</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>D-Bus type, variant_level &gt; 0</p></td>
+<td><p>variant (v)</p></td>
+</tr>
+<tr class="row-odd"><td><p>D-Bus type, variant_level == 0</p></td>
+<td><p>the corresponding type</p></td>
+</tr>
+<tr class="row-even"><td><p>anything with a
+__dbus_object_path__ attribute</p></td>
+<td><p>object path</p></td>
+</tr>
+<tr class="row-odd"><td><p>bool</p></td>
+<td><p>boolean (y)</p></td>
+</tr>
+<tr class="row-even"><td><p>any other int subclass</p></td>
+<td><p>int32 (i)</p></td>
+</tr>
+<tr class="row-odd"><td><p>any other long subclass</p></td>
+<td><p>int64 (x)</p></td>
+</tr>
+<tr class="row-even"><td><p>any other float subclass</p></td>
+<td><p>double (d)</p></td>
+</tr>
+<tr class="row-odd"><td><p>any other str subclass</p></td>
+<td><p>string (s)</p></td>
+</tr>
+<tr class="row-even"><td><p>any other unicode subclass</p></td>
+<td><p>string (s)</p></td>
+</tr>
+<tr class="row-odd"><td><p>any other tuple subclass</p></td>
+<td><p>struct ((…))</p></td>
+</tr>
+<tr class="row-even"><td><p>any other list subclass</p></td>
+<td><p>array (a…), guess
+contents’ type according to
+type of first item</p></td>
+</tr>
+<tr class="row-odd"><td><p>any other dict subclass</p></td>
+<td><p>dict (a{…}), guess key,
+value type according to
+types for an arbitrary item</p></td>
+</tr>
+<tr class="row-even"><td><p>anything else</p></td>
+<td><p>raise TypeError</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.has_destination">
+<span class="sig-name descname"><span class="pre">has_destination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bus_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.has_destination" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.has_interface">
+<span class="sig-name descname"><span class="pre">has_interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.has_interface" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.has_member">
+<span class="sig-name descname"><span class="pre">has_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.has_member" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.has_path">
+<span class="sig-name descname"><span class="pre">has_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.has_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.has_sender">
+<span class="sig-name descname"><span class="pre">has_sender</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unique_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.has_sender" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.has_signature">
+<span class="sig-name descname"><span class="pre">has_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.has_signature" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.is_error">
+<span class="sig-name descname"><span class="pre">is_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.is_error" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.is_method_call">
+<span class="sig-name descname"><span class="pre">is_method_call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.is_method_call" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.is_signal">
+<span class="sig-name descname"><span class="pre">is_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.is_signal" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.set_auto_start">
+<span class="sig-name descname"><span class="pre">set_auto_start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.set_auto_start" title="Permalink to this definition"></a></dt>
+<dd><p>Set whether this message will cause an owner for the destination name
+to be auto-started.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.set_destination">
+<span class="sig-name descname"><span class="pre">set_destination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bus_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.set_destination" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.set_error_name">
+<span class="sig-name descname"><span class="pre">set_error_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.set_error_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.set_interface">
+<span class="sig-name descname"><span class="pre">set_interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.set_interface" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.set_member">
+<span class="sig-name descname"><span class="pre">set_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unique_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.set_member" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.set_no_reply">
+<span class="sig-name descname"><span class="pre">set_no_reply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.set_no_reply" title="Permalink to this definition"></a></dt>
+<dd><p>Set whether no reply to this message is required.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.set_path">
+<span class="sig-name descname"><span class="pre">set_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.set_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.set_reply_serial">
+<span class="sig-name descname"><span class="pre">set_reply_serial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.set_reply_serial" title="Permalink to this definition"></a></dt>
+<dd><p>Set the serial that this message is a reply to.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.MethodReturnMessage.set_sender">
+<span class="sig-name descname"><span class="pre">set_sender</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unique_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.MethodReturnMessage.set_sender" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dbus.lowlevel.PendingCall">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dbus.lowlevel.</span></span><span class="sig-name descname"><span class="pre">PendingCall</span></span><a class="headerlink" href="#dbus.lowlevel.PendingCall" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Object representing a pending D-Bus call, returned by
+Connection.send_message_with_reply(). Cannot be instantiated directly.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.PendingCall.block">
+<span class="sig-name descname"><span class="pre">block</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.PendingCall.block" title="Permalink to this definition"></a></dt>
+<dd><p>Block until this pending call has completed and the associated
+reply handler has been called.</p>
+<p>This can lead to a deadlock, if the called method tries to make a
+synchronous call to a method in this application.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.PendingCall.cancel">
+<span class="sig-name descname"><span class="pre">cancel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.PendingCall.cancel" title="Permalink to this definition"></a></dt>
+<dd><p>Cancel this pending call. Its reply will be ignored and the associated
+reply handler will never be called.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.PendingCall.get_completed">
+<span class="sig-name descname"><span class="pre">get_completed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.PendingCall.get_completed" title="Permalink to this definition"></a></dt>
+<dd><p>Return true if this pending call has completed.</p>
+<p>If so, its associated reply handler has been called and it is no
+longer meaningful to cancel it.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dbus.lowlevel.</span></span><span class="sig-name descname"><span class="pre">SignalMessage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.SignalMessage" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dbus.lowlevel.Message" title="dbus.lowlevel.Message"><code class="xref py py-class docutils literal notranslate"><span class="pre">dbus.lowlevel.Message</span></code></a></p>
+<p>A signal message.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.append" title="Permalink to this definition"></a></dt>
+<dd><p>Set the message’s arguments from the positional parameter, according to
+the signature given by the <code class="docutils literal notranslate"><span class="pre">signature</span></code> keyword parameter.</p>
+<p>The following type conversions are supported:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>D-Bus (in signature)</p></th>
+<th class="head"><p>Python</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>boolean (b)</p></td>
+<td><p>any object (via bool())</p></td>
+</tr>
+<tr class="row-odd"><td><p>byte (y)</p></td>
+<td><p>string of length 1
+any integer</p></td>
+</tr>
+<tr class="row-even"><td><p>any integer type</p></td>
+<td><p>any integer</p></td>
+</tr>
+<tr class="row-odd"><td><p>double (d)</p></td>
+<td><p>any float</p></td>
+</tr>
+<tr class="row-even"><td><p>object path</p></td>
+<td><p>anything with a __dbus_object_path__ attribute</p></td>
+</tr>
+<tr class="row-odd"><td><p>string, signature, object path</p></td>
+<td><p>str (must be UTF-8) or unicode</p></td>
+</tr>
+<tr class="row-even"><td><p>dict (a{…})</p></td>
+<td><p>any mapping</p></td>
+</tr>
+<tr class="row-odd"><td><p>array (a…)</p></td>
+<td><p>any iterable over appropriate objects</p></td>
+</tr>
+<tr class="row-even"><td><p>struct ((…))</p></td>
+<td><p>any iterable over appropriate objects</p></td>
+</tr>
+<tr class="row-odd"><td><p>variant</p></td>
+<td><p>any object above (guess type as below)</p></td>
+</tr>
+</tbody>
+</table>
+<p>Here ‘any integer’ means anything on which int() or long()
+(as appropriate) will work, except for basestring subclasses.
+‘Any float’ means anything on which float() will work, except
+for basestring subclasses.</p>
+<p>If there is no signature, guess from the arguments using
+the static method <cite>Message.guess_signature</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">)</span> <span class="pre">-&gt;</span> <span class="pre">Message</span> <span class="pre">(or</span> <span class="pre">subclass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.copy" title="Permalink to this definition"></a></dt>
+<dd><p>Deep-copy the message, resetting the serial number to zero.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.get_args_list">
+<span class="sig-name descname"><span class="pre">get_args_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.get_args_list" title="Permalink to this definition"></a></dt>
+<dd><p>Return the message’s arguments. Keyword arguments control the translation
+of D-Bus types to Python:</p>
+<dl class="field-list">
+<dt class="field-odd">Keywords</dt>
+<dd class="field-odd"><dl>
+<dt><cite>byte_arrays</cite><span class="classifier">bool</span></dt><dd><p>If true, convert arrays of byte (signature ‘ay’) into dbus.ByteArray,
+a str subclass. In practice, this is usually what you want, but
+it’s off by default for consistency.</p>
+<p>If false (default), convert them into a dbus.Array of Bytes.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Most of the type mappings should be fairly obvious:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 79%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>D-Bus</p></th>
+<th class="head"><p>Python</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte (y)</p></td>
+<td><p>dbus.Byte (int subclass)</p></td>
+</tr>
+<tr class="row-odd"><td><p>bool (b)</p></td>
+<td><p>dbus.Boolean (int subclass)</p></td>
+</tr>
+<tr class="row-even"><td><p>Signature (g)</p></td>
+<td><p>dbus.Signature (str subclass)</p></td>
+</tr>
+<tr class="row-odd"><td><p>intNN, uintNN</p></td>
+<td><p>dbus.IntNN, dbus.UIntNN (int or long subclasses)</p></td>
+</tr>
+<tr class="row-even"><td><p>double (d)</p></td>
+<td><p>dbus.Double</p></td>
+</tr>
+<tr class="row-odd"><td><p>string (s)</p></td>
+<td><p>dbus.String (unicode subclass)
+(or dbus.UTF8String, bytes subclass, if utf8_strings set)</p></td>
+</tr>
+<tr class="row-even"><td><p>Object path (o)</p></td>
+<td><p>dbus.ObjectPath (str subclass)</p></td>
+</tr>
+<tr class="row-odd"><td><p>dict (a{…})</p></td>
+<td><p>dbus.Dictionary</p></td>
+</tr>
+<tr class="row-even"><td><p>array (a…)</p></td>
+<td><p>dbus.Array (list subclass) containing appropriate types</p></td>
+</tr>
+<tr class="row-odd"><td><p>byte array (ay)</p></td>
+<td><p>dbus.ByteArray (str subclass) if byte_arrays set; or
+list of Byte</p></td>
+</tr>
+<tr class="row-even"><td><p>struct ((…))</p></td>
+<td><p>dbus.Struct (tuple subclass) of appropriate types</p></td>
+</tr>
+<tr class="row-odd"><td><p>variant (v)</p></td>
+<td><p>contained type, but with variant_level &gt; 0</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.get_auto_start">
+<span class="sig-name descname"><span class="pre">get_auto_start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.get_auto_start" title="Permalink to this definition"></a></dt>
+<dd><p>Return true if this message will cause an owner for the destination name
+to be auto-started.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.get_destination">
+<span class="sig-name descname"><span class="pre">get_destination</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.get_destination" title="Permalink to this definition"></a></dt>
+<dd><p>Return the message’s destination bus name, or None if none.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.get_error_name">
+<span class="sig-name descname"><span class="pre">get_error_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.get_error_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.get_interface">
+<span class="sig-name descname"><span class="pre">get_interface</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.get_interface" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.get_member">
+<span class="sig-name descname"><span class="pre">get_member</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.get_member" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.get_no_reply">
+<span class="sig-name descname"><span class="pre">get_no_reply</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.get_no_reply" title="Permalink to this definition"></a></dt>
+<dd><p>Return true if this message need not be replied to.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.get_path">
+<span class="sig-name descname"><span class="pre">get_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ObjectPath</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.get_path" title="Permalink to this definition"></a></dt>
+<dd><p>Return the message’s destination object path (if it’s a method call) or
+source object path (if it’s a method reply or a signal) or None (if it
+has no path).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.get_path_decomposed">
+<span class="sig-name descname"><span class="pre">get_path_decomposed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span> <span class="pre">of</span> <span class="pre">str,</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.get_path_decomposed" title="Permalink to this definition"></a></dt>
+<dd><p>Return a list of path components (e.g. /foo/bar -&gt; [‘foo’,’bar’], / -&gt; [])
+or None if the message has no associated path.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.get_reply_serial">
+<span class="sig-name descname"><span class="pre">get_reply_serial</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">long</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.get_reply_serial" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the serial that the message is a reply to or 0 if none.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.get_sender">
+<span class="sig-name descname"><span class="pre">get_sender</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.get_sender" title="Permalink to this definition"></a></dt>
+<dd><p>Return the message’s sender unique name, or None if none.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.get_serial">
+<span class="sig-name descname"><span class="pre">get_serial</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">long</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.get_serial" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the serial of a message or 0 if none has been specified.</p>
+<p>The message’s serial number is provided by the application sending the
+message and is used to identify replies to this message. All messages
+received on a connection will have a serial, but messages you haven’t
+sent yet may return 0.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.get_signature">
+<span class="sig-name descname"><span class="pre">get_signature</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Signature</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.get_signature" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.get_type">
+<span class="sig-name descname"><span class="pre">get_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.get_type" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the type of the message.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.guess_signature">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">guess_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Signature</span> <span class="pre">[static</span> <span class="pre">method]</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.guess_signature" title="Permalink to this definition"></a></dt>
+<dd><p>Guess a D-Bus signature which should be used to encode the given
+Python objects.</p>
+<p>The signature is constructed as follows:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 53%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Python</p></th>
+<th class="head"><p>D-Bus</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>D-Bus type, variant_level &gt; 0</p></td>
+<td><p>variant (v)</p></td>
+</tr>
+<tr class="row-odd"><td><p>D-Bus type, variant_level == 0</p></td>
+<td><p>the corresponding type</p></td>
+</tr>
+<tr class="row-even"><td><p>anything with a
+__dbus_object_path__ attribute</p></td>
+<td><p>object path</p></td>
+</tr>
+<tr class="row-odd"><td><p>bool</p></td>
+<td><p>boolean (y)</p></td>
+</tr>
+<tr class="row-even"><td><p>any other int subclass</p></td>
+<td><p>int32 (i)</p></td>
+</tr>
+<tr class="row-odd"><td><p>any other long subclass</p></td>
+<td><p>int64 (x)</p></td>
+</tr>
+<tr class="row-even"><td><p>any other float subclass</p></td>
+<td><p>double (d)</p></td>
+</tr>
+<tr class="row-odd"><td><p>any other str subclass</p></td>
+<td><p>string (s)</p></td>
+</tr>
+<tr class="row-even"><td><p>any other unicode subclass</p></td>
+<td><p>string (s)</p></td>
+</tr>
+<tr class="row-odd"><td><p>any other tuple subclass</p></td>
+<td><p>struct ((…))</p></td>
+</tr>
+<tr class="row-even"><td><p>any other list subclass</p></td>
+<td><p>array (a…), guess
+contents’ type according to
+type of first item</p></td>
+</tr>
+<tr class="row-odd"><td><p>any other dict subclass</p></td>
+<td><p>dict (a{…}), guess key,
+value type according to
+types for an arbitrary item</p></td>
+</tr>
+<tr class="row-even"><td><p>anything else</p></td>
+<td><p>raise TypeError</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.has_destination">
+<span class="sig-name descname"><span class="pre">has_destination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bus_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.has_destination" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.has_interface">
+<span class="sig-name descname"><span class="pre">has_interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.has_interface" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.has_member">
+<span class="sig-name descname"><span class="pre">has_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.has_member" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.has_path">
+<span class="sig-name descname"><span class="pre">has_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.has_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.has_sender">
+<span class="sig-name descname"><span class="pre">has_sender</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unique_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.has_sender" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.has_signature">
+<span class="sig-name descname"><span class="pre">has_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.has_signature" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.is_error">
+<span class="sig-name descname"><span class="pre">is_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.is_error" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.is_method_call">
+<span class="sig-name descname"><span class="pre">is_method_call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.is_method_call" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.is_signal">
+<span class="sig-name descname"><span class="pre">is_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.is_signal" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.set_auto_start">
+<span class="sig-name descname"><span class="pre">set_auto_start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.set_auto_start" title="Permalink to this definition"></a></dt>
+<dd><p>Set whether this message will cause an owner for the destination name
+to be auto-started.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.set_destination">
+<span class="sig-name descname"><span class="pre">set_destination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bus_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.set_destination" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.set_error_name">
+<span class="sig-name descname"><span class="pre">set_error_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.set_error_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.set_interface">
+<span class="sig-name descname"><span class="pre">set_interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.set_interface" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.set_member">
+<span class="sig-name descname"><span class="pre">set_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unique_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.set_member" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.set_no_reply">
+<span class="sig-name descname"><span class="pre">set_no_reply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.set_no_reply" title="Permalink to this definition"></a></dt>
+<dd><p>Set whether no reply to this message is required.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.set_path">
+<span class="sig-name descname"><span class="pre">set_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.set_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.set_reply_serial">
+<span class="sig-name descname"><span class="pre">set_reply_serial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.set_reply_serial" title="Permalink to this definition"></a></dt>
+<dd><p>Set the serial that this message is a reply to.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.lowlevel.SignalMessage.set_sender">
+<span class="sig-name descname"><span class="pre">set_sender</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unique_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.lowlevel.SignalMessage.set_sender" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="dbus.gi_service.html" class="btn btn-neutral float-left" title="dbus.gi_service module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dbus.mainloop.html" class="btn btn-neutral float-right" title="dbus.mainloop package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2003-2018, D-Bus contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

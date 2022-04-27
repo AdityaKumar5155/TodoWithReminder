@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dbus.connection module &mdash; dbus-python 1.2.18 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="dbus.decorators module" href="dbus.decorators.html" />
+    <link rel="prev" title="dbus.bus module" href="dbus.bus.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> dbus-python
+          </a>
+              <div class="version">
+                1.2.18
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">dbus-python tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="dbus.html">dbus package API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="dbus.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="dbus.bus.html">dbus.bus module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">dbus.connection module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.decorators.html">dbus.decorators module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.exceptions.html">dbus.exceptions module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.gi_service.html">dbus.gi_service module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.lowlevel.html">dbus.lowlevel module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.mainloop.html">dbus.mainloop package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.proxies.html">dbus.proxies module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.server.html">dbus.server module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.service.html">dbus.service module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.types.html">dbus.types module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dbus.html#deprecated-submodules">Deprecated submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dbus.html#module-dbus">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PY3PORT.html">Porting to Python 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="news.html">Release history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="API_CHANGES.html">API changes in dbus-python 0.80</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">dbus-python</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="dbus.html">dbus package API reference</a> &raquo;</li>
+      <li>dbus.connection module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/dbus.connection.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-dbus.connection">
+<span id="dbus-connection-module"></span><h1>dbus.connection module<a class="headerlink" href="#module-dbus.connection" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="dbus.connection.Connection">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dbus.connection.</span></span><span class="sig-name descname"><span class="pre">Connection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.connection.Connection" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_dbus_bindings.Connection</span></code></p>
+<p>A connection to another application. In this base class there is
+assumed to be no bus daemon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Since</dt>
+<dd class="field-odd"><p>0.81.0</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dbus.connection.Connection.ProxyObjectClass">
+<span class="sig-name descname"><span class="pre">ProxyObjectClass</span></span><a class="headerlink" href="#dbus.connection.Connection.ProxyObjectClass" title="Permalink to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="dbus.proxies.html#dbus.proxies.ProxyObject" title="dbus.proxies.ProxyObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">dbus.proxies.ProxyObject</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.Connection.activate_name_owner">
+<span class="sig-name descname"><span class="pre">activate_name_owner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bus_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.connection.Connection.activate_name_owner" title="Permalink to this definition"></a></dt>
+<dd><p>Return the unique name for the given bus name, activating it
+if necessary and possible.</p>
+<p>If the name is already unique or this connection is not to a
+bus daemon, just return it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a bus name. If the given <cite>bus_name</cite> exists, the returned
+name identifies its current owner; otherwise the returned name
+does not exist.</p>
+</dd>
+<dt class="field-even">Raises DBusException</dt>
+<dd class="field-even"><p>if the implementation has failed
+to activate the given bus name.</p>
+</dd>
+<dt class="field-odd">Since</dt>
+<dd class="field-odd"><p>0.81.0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.Connection.add_message_filter">
+<span class="sig-name descname"><span class="pre">add_message_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.connection.Connection.add_message_filter" title="Permalink to this definition"></a></dt>
+<dd><p>Add the given message filter to the internal list.</p>
+<p>Filters are handlers that are run on all incoming messages, prior to the
+objects registered to handle object paths.</p>
+<p>Filters are run in the order that they were added. The same handler can
+be added as a filter more than once, in which case it will be run more
+than once. Filters added during a filter callback won’t be run on the
+message being processed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.Connection.add_signal_receiver">
+<span class="sig-name descname"><span class="pre">add_signal_receiver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handler_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dbus_interface</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bus_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">keywords</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.connection.Connection.add_signal_receiver" title="Permalink to this definition"></a></dt>
+<dd><p>Arrange for the given function to be called when a signal matching
+the parameters is received.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><cite>handler_function</cite><span class="classifier">callable</span></dt><dd><p>The function to be called. Its positional arguments will
+be the arguments of the signal. By default it will receive
+no keyword arguments, but see the description of
+the optional keyword arguments below.</p>
+</dd>
+<dt><cite>signal_name</cite><span class="classifier">str</span></dt><dd><p>The signal name; None (the default) matches all names</p>
+</dd>
+<dt><cite>dbus_interface</cite><span class="classifier">str</span></dt><dd><p>The D-Bus interface name with which to qualify the signal;
+None (the default) matches all interface names</p>
+</dd>
+<dt><cite>bus_name</cite><span class="classifier">str</span></dt><dd><p>A bus name for the sender, which will be resolved to a
+unique name if it is not already; None (the default) matches
+any sender.</p>
+</dd>
+<dt><cite>path</cite><span class="classifier">str</span></dt><dd><p>The object path of the object which must have emitted the
+signal; None (the default) matches any object path</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Keywords</dt>
+<dd class="field-even"><dl class="simple">
+<dt><cite>utf8_strings</cite><span class="classifier">bool</span></dt><dd><p>If True, the handler function will receive any string
+arguments as dbus.UTF8String objects (a subclass of str
+guaranteed to be UTF-8). If False (default) it will receive
+any string arguments as dbus.String objects (a subclass of
+unicode).</p>
+</dd>
+<dt><cite>byte_arrays</cite><span class="classifier">bool</span></dt><dd><p>If True, the handler function will receive any byte-array
+arguments as dbus.ByteArray objects (a subclass of str).
+If False (default) it will receive any byte-array
+arguments as a dbus.Array of dbus.Byte (subclasses of:
+a list of ints).</p>
+</dd>
+<dt><cite>sender_keyword</cite><span class="classifier">str</span></dt><dd><p>If not None (the default), the handler function will receive
+the unique name of the sending endpoint as a keyword
+argument with this name.</p>
+</dd>
+<dt><cite>destination_keyword</cite><span class="classifier">str</span></dt><dd><p>If not None (the default), the handler function will receive
+the bus name of the destination (or None if the signal is a
+broadcast, as is usual) as a keyword argument with this name.</p>
+</dd>
+<dt><cite>interface_keyword</cite><span class="classifier">str</span></dt><dd><p>If not None (the default), the handler function will receive
+the signal interface as a keyword argument with this name.</p>
+</dd>
+<dt><cite>member_keyword</cite><span class="classifier">str</span></dt><dd><p>If not None (the default), the handler function will receive
+the signal name as a keyword argument with this name.</p>
+</dd>
+<dt><cite>path_keyword</cite><span class="classifier">str</span></dt><dd><p>If not None (the default), the handler function will receive
+the object-path of the sending object as a keyword argument
+with this name.</p>
+</dd>
+<dt><cite>message_keyword</cite><span class="classifier">str</span></dt><dd><p>If not None (the default), the handler function will receive
+the <cite>dbus.lowlevel.SignalMessage</cite> as a keyword argument with
+this name.</p>
+</dd>
+<dt><cite>arg…</cite><span class="classifier">unicode or UTF-8 str</span></dt><dd><p>If there are additional keyword parameters of the form
+<code class="docutils literal notranslate"><span class="pre">arg</span></code><em>n</em>, match only signals where the <em>n</em>th argument
+is the value given for that keyword parameter. As of this
+time only string arguments can be matched (in particular,
+object paths and signatures can’t).</p>
+</dd>
+<dt><cite>named_service</cite><span class="classifier">str</span></dt><dd><p>A deprecated alias for <cite>bus_name</cite>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.Connection.call_async">
+<span class="sig-name descname"><span class="pre">call_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bus_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dbus_interface</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reply_handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">byte_arrays</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">require_main_loop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.connection.Connection.call_async" title="Permalink to this definition"></a></dt>
+<dd><p>Call the given method, asynchronously.</p>
+<p>If the reply_handler is None, successful replies will be ignored.
+If the error_handler is None, failures will be ignored. If both
+are None, the implementation may request that no reply is sent.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The dbus.lowlevel.PendingCall.</p>
+</dd>
+<dt class="field-even">Since</dt>
+<dd class="field-even"><p>0.81.0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.Connection.call_blocking">
+<span class="sig-name descname"><span class="pre">call_blocking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bus_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dbus_interface</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">byte_arrays</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.connection.Connection.call_blocking" title="Permalink to this definition"></a></dt>
+<dd><p>Call the given method, synchronously.
+:Since: 0.81.0</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.Connection.call_on_disconnection">
+<span class="sig-name descname"><span class="pre">call_on_disconnection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.connection.Connection.call_on_disconnection" title="Permalink to this definition"></a></dt>
+<dd><p>Arrange for <cite>callable</cite> to be called with one argument (this
+Connection object) when the Connection becomes
+disconnected.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Since</dt>
+<dd class="field-odd"><p>0.83.0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.Connection.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dbus.connection.Connection.close" title="Permalink to this definition"></a></dt>
+<dd><p>Close the connection.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.Connection.flush">
+<span class="sig-name descname"><span class="pre">flush</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dbus.connection.Connection.flush" title="Permalink to this definition"></a></dt>
+<dd><p>Block until the outgoing message queue is empty.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.Connection.get_is_authenticated">
+<span class="sig-name descname"><span class="pre">get_is_authenticated</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.connection.Connection.get_is_authenticated" title="Permalink to this definition"></a></dt>
+<dd><p>Return true if this Connection was ever authenticated.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.Connection.get_is_connected">
+<span class="sig-name descname"><span class="pre">get_is_connected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dbus.connection.Connection.get_is_connected" title="Permalink to this definition"></a></dt>
+<dd><p>Return true if this Connection is connected.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.Connection.get_object">
+<span class="sig-name descname"><span class="pre">get_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bus_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">introspect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.connection.Connection.get_object" title="Permalink to this definition"></a></dt>
+<dd><p>Return a local proxy for the given remote object.</p>
+<p>Method calls on the proxy are translated into method calls on the
+remote object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><cite>bus_name</cite><span class="classifier">str</span></dt><dd><p>A bus name (either the unique name or a well-known name)
+of the application owning the object. The keyword argument
+named_service is a deprecated alias for this.</p>
+</dd>
+<dt><cite>object_path</cite><span class="classifier">str</span></dt><dd><p>The object path of the desired object</p>
+</dd>
+<dt><cite>introspect</cite><span class="classifier">bool</span></dt><dd><p>If true (default), attempt to introspect the remote
+object to find out supported methods and their signatures</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a <cite>dbus.proxies.ProxyObject</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.Connection.get_peer_unix_process_id">
+<span class="sig-name descname"><span class="pre">get_peer_unix_process_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">long</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.connection.Connection.get_peer_unix_process_id" title="Permalink to this definition"></a></dt>
+<dd><p>Get the UNIX process ID at the other end of the connection, if it has been
+authenticated. Return None if this is a non-UNIX platform or the
+connection has not been authenticated.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.Connection.get_peer_unix_user">
+<span class="sig-name descname"><span class="pre">get_peer_unix_user</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">long</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.connection.Connection.get_peer_unix_user" title="Permalink to this definition"></a></dt>
+<dd><p>Get the UNIX user ID at the other end of the connection, if it has been
+authenticated. Return None if this is a non-UNIX platform or the
+connection has not been authenticated.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.Connection.get_unique_name">
+<span class="sig-name descname"><span class="pre">get_unique_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#dbus.connection.Connection.get_unique_name" title="Permalink to this definition"></a></dt>
+<dd><p>Return this application’s unique name on this bus.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises DBusException</dt>
+<dd class="field-odd"><p>if the connection has no unique name yet
+(for Bus objects this can’t happen, for peer-to-peer connections
+this means you haven’t called <cite>set_unique_name</cite>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.Connection.get_unix_fd">
+<span class="sig-name descname"><span class="pre">get_unix_fd</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span> <span class="pre">or</span> <span class="pre">None</span></span></span><a class="headerlink" href="#dbus.connection.Connection.get_unix_fd" title="Permalink to this definition"></a></dt>
+<dd><p>Get the connection’s UNIX file descriptor, if any.</p>
+<p>This can be used for SELinux access control checks with <code class="docutils literal notranslate"><span class="pre">getpeercon()</span></code>
+for example. <strong>Do not</strong> read or write to the file descriptor, or try to
+<code class="docutils literal notranslate"><span class="pre">select()</span></code> on it.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.Connection.list_exported_child_objects">
+<span class="sig-name descname"><span class="pre">list_exported_child_objects</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span> <span class="pre">of</span> <span class="pre">str</span></span></span><a class="headerlink" href="#dbus.connection.Connection.list_exported_child_objects" title="Permalink to this definition"></a></dt>
+<dd><p>Return a list of the names of objects exported on this Connection as
+direct children of the given object path.</p>
+<p>Each name returned may be converted to a valid object path using
+<code class="docutils literal notranslate"><span class="pre">dbus.ObjectPath('%s%s%s'</span> <span class="pre">%</span> <span class="pre">(path,</span> <span class="pre">(path</span> <span class="pre">!=</span> <span class="pre">'/'</span> <span class="pre">and</span> <span class="pre">'/'</span> <span class="pre">or</span> <span class="pre">''),</span> <span class="pre">name))</span></code>.
+For the purposes of this function, every parent or ancestor of an exported
+object is considered to be an exported object, even if it’s only an object
+synthesized by the library to support introspection.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.Connection.remove_message_filter">
+<span class="sig-name descname"><span class="pre">remove_message_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.connection.Connection.remove_message_filter" title="Permalink to this definition"></a></dt>
+<dd><p>Remove the given message filter (see <cite>add_message_filter</cite> for details).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises LookupError</dt>
+<dd class="field-odd"><p>The given callable is not among the registered filters</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.Connection.remove_signal_receiver">
+<span class="sig-name descname"><span class="pre">remove_signal_receiver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handler_or_match</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dbus_interface</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bus_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">keywords</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.connection.Connection.remove_signal_receiver" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.Connection.send_message">
+<span class="sig-name descname"><span class="pre">send_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">long</span></span></span><a class="headerlink" href="#dbus.connection.Connection.send_message" title="Permalink to this definition"></a></dt>
+<dd><p>Queue the given message for sending, and return the message serial number.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><cite>msg</cite><span class="classifier">dbus.lowlevel.Message</span></dt><dd><p>The message to be sent.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.Connection.send_message_with_reply">
+<span class="sig-name descname"><span class="pre">send_message_with_reply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reply_handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">require_main_loop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="dbus.lowlevel.html#dbus.lowlevel.PendingCall" title="dbus.lowlevel.PendingCall"><span class="pre">dbus.lowlevel.PendingCall</span></a></span></span><a class="headerlink" href="#dbus.connection.Connection.send_message_with_reply" title="Permalink to this definition"></a></dt>
+<dd><p>Queue the message for sending; expect a reply via the returned PendingCall,
+which can also be used to cancel the pending call.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><cite>msg</cite><span class="classifier">dbus.lowlevel.Message</span></dt><dd><p>The message to be sent</p>
+</dd>
+<dt><cite>reply_handler</cite><span class="classifier">callable</span></dt><dd><p>Asynchronous reply handler: will be called with one positional
+parameter, a Message instance representing the reply.</p>
+</dd>
+<dt><cite>timeout_s</cite><span class="classifier">float</span></dt><dd><p>If the reply takes more than this many seconds, a timeout error
+will be created locally and raised instead. If this timeout is
+negative (default), a sane default (supplied by libdbus) is used.</p>
+</dd>
+<dt><cite>require_main_loop</cite><span class="classifier">bool</span></dt><dd><p>If True, raise RuntimeError if this Connection does not have a main
+loop configured. If False (default) and there is no main loop, you are
+responsible for calling block() on the PendingCall.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.Connection.send_message_with_reply_and_block">
+<span class="sig-name descname"><span class="pre">send_message_with_reply_and_block</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="dbus.lowlevel.html#dbus.lowlevel.Message" title="dbus.lowlevel.Message"><span class="pre">dbus.lowlevel.Message</span></a></span></span><a class="headerlink" href="#dbus.connection.Connection.send_message_with_reply_and_block" title="Permalink to this definition"></a></dt>
+<dd><p>Send the message and block while waiting for a reply.</p>
+<p>This does not re-enter the main loop, so it can lead to a deadlock, if
+the called method tries to make a synchronous call to a method in this
+application. As such, it’s probably a bad idea.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><cite>msg</cite><span class="classifier">dbus.lowlevel.Message</span></dt><dd><p>The message to be sent</p>
+</dd>
+<dt><cite>timeout_s</cite><span class="classifier">float</span></dt><dd><p>If the reply takes more than this many seconds, a timeout error
+will be created locally and raised instead. If this timeout is
+negative (default), a sane default (supplied by libdbus) is used.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <cite>dbus.lowlevel.Message</cite> instance (probably a <cite>dbus.lowlevel.MethodReturnMessage</cite>) on success</p>
+</dd>
+<dt class="field-odd">Raises dbus.DBusException</dt>
+<dd class="field-odd"><p>On error (including if the reply arrives but is an
+error message)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.Connection.set_allow_anonymous">
+<span class="sig-name descname"><span class="pre">set_allow_anonymous</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.connection.Connection.set_allow_anonymous" title="Permalink to this definition"></a></dt>
+<dd><p>Allows anonymous clients. Call this on the server side of a connection in a on_connection_added callback</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.Connection.set_exit_on_disconnect">
+<span class="sig-name descname"><span class="pre">set_exit_on_disconnect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.connection.Connection.set_exit_on_disconnect" title="Permalink to this definition"></a></dt>
+<dd><p>Set whether the C function <code class="docutils literal notranslate"><span class="pre">_exit</span></code> will be called when this Connection
+becomes disconnected. This will cause the program to exit without calling
+any cleanup code or exit handlers.</p>
+<p>The default is for this feature to be disabled for Connections and enabled
+for Buses.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.Connection.set_unique_name">
+<span class="sig-name descname"><span class="pre">set_unique_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.connection.Connection.set_unique_name" title="Permalink to this definition"></a></dt>
+<dd><p>Set this application’s unique name on this bus. Raise ValueError if it has
+already been set.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dbus.connection.SignalMatch">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dbus.connection.</span></span><span class="sig-name descname"><span class="pre">SignalMatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dbus_interface</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">byte_arrays</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sender_keyword</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_keyword</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interface_keyword</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member_keyword</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_keyword</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination_keyword</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.connection.SignalMatch" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.SignalMatch.matches_removal_spec">
+<span class="sig-name descname"><span class="pre">matches_removal_spec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dbus_interface</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handler</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.connection.SignalMatch.matches_removal_spec" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.SignalMatch.maybe_handle_message">
+<span class="sig-name descname"><span class="pre">maybe_handle_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.connection.SignalMatch.maybe_handle_message" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.SignalMatch.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dbus.connection.SignalMatch.remove" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="dbus.connection.SignalMatch.sender">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sender</span></span><a class="headerlink" href="#dbus.connection.SignalMatch.sender" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.connection.SignalMatch.set_sender_name_owner">
+<span class="sig-name descname"><span class="pre">set_sender_name_owner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.connection.SignalMatch.set_sender_name_owner" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="dbus.bus.html" class="btn btn-neutral float-left" title="dbus.bus module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dbus.decorators.html" class="btn btn-neutral float-right" title="dbus.decorators module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2003-2018, D-Bus contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

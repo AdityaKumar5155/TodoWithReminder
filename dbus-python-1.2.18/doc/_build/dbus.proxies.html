@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dbus.proxies module &mdash; dbus-python 1.2.18 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="dbus.server module" href="dbus.server.html" />
+    <link rel="prev" title="dbus.mainloop package" href="dbus.mainloop.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> dbus-python
+          </a>
+              <div class="version">
+                1.2.18
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">dbus-python tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="dbus.html">dbus package API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="dbus.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="dbus.bus.html">dbus.bus module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.connection.html">dbus.connection module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.decorators.html">dbus.decorators module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.exceptions.html">dbus.exceptions module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.gi_service.html">dbus.gi_service module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.lowlevel.html">dbus.lowlevel module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.mainloop.html">dbus.mainloop package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">dbus.proxies module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.server.html">dbus.server module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.service.html">dbus.service module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbus.types.html">dbus.types module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dbus.html#deprecated-submodules">Deprecated submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dbus.html#module-dbus">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PY3PORT.html">Porting to Python 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="news.html">Release history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="API_CHANGES.html">API changes in dbus-python 0.80</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">dbus-python</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="dbus.html">dbus package API reference</a> &raquo;</li>
+      <li>dbus.proxies module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/dbus.proxies.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-dbus.proxies">
+<span id="dbus-proxies-module"></span><h1>dbus.proxies module<a class="headerlink" href="#module-dbus.proxies" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="dbus.proxies.Interface">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dbus.proxies.</span></span><span class="sig-name descname"><span class="pre">Interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dbus_interface</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.proxies.Interface" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>An interface into a remote object.</p>
+<p>An Interface can be used to wrap ProxyObjects
+so that calls can be routed to their correct
+D-Bus interface.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="dbus.proxies.Interface.bus_name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bus_name</span></span><a class="headerlink" href="#dbus.proxies.Interface.bus_name" title="Permalink to this definition"></a></dt>
+<dd><p>The bus name to which the underlying proxy object is bound</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.proxies.Interface.connect_to_signal">
+<span class="sig-name descname"><span class="pre">connect_to_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handler_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dbus_interface</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">keywords</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.proxies.Interface.connect_to_signal" title="Permalink to this definition"></a></dt>
+<dd><p>Arrange for a function to be called when the given signal is
+emitted.</p>
+<p>The parameters and keyword arguments are the same as for
+<cite>dbus.proxies.ProxyObject.connect_to_signal</cite>, except that if
+<cite>dbus_interface</cite> is None (the default), the D-Bus interface that
+was passed to the <cite>Interface</cite> constructor is used.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="dbus.proxies.Interface.dbus_interface">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dbus_interface</span></span><a class="headerlink" href="#dbus.proxies.Interface.dbus_interface" title="Permalink to this definition"></a></dt>
+<dd><p>The D-Bus interface represented</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.proxies.Interface.get_dbus_method">
+<span class="sig-name descname"><span class="pre">get_dbus_method</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">member</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dbus_interface</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.proxies.Interface.get_dbus_method" title="Permalink to this definition"></a></dt>
+<dd><p>Return a proxy method representing the given D-Bus method.</p>
+<p>This is the same as <cite>dbus.proxies.ProxyObject.get_dbus_method</cite>
+except that if <cite>dbus_interface</cite> is None (the default),
+the D-Bus interface that was passed to the <cite>Interface</cite> constructor
+is used.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="dbus.proxies.Interface.object_path">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">object_path</span></span><a class="headerlink" href="#dbus.proxies.Interface.object_path" title="Permalink to this definition"></a></dt>
+<dd><p>The D-Bus object path of the underlying object</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="dbus.proxies.Interface.proxy_object">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">proxy_object</span></span><a class="headerlink" href="#dbus.proxies.Interface.proxy_object" title="Permalink to this definition"></a></dt>
+<dd><p>The underlying proxy object</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="dbus.proxies.Interface.requested_bus_name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">requested_bus_name</span></span><a class="headerlink" href="#dbus.proxies.Interface.requested_bus_name" title="Permalink to this definition"></a></dt>
+<dd><p>The bus name which was requested when the underlying object was created</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dbus.proxies.ProxyObject">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dbus.proxies.</span></span><span class="sig-name descname"><span class="pre">ProxyObject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bus_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">introspect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">follow_name_owner_changes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.proxies.ProxyObject" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A proxy to the remote Object.</p>
+<p>A ProxyObject is provided by the Bus. ProxyObjects
+have member functions, and can be called like normal Python objects.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dbus.proxies.ProxyObject.DeferredMethodClass">
+<span class="sig-name descname"><span class="pre">DeferredMethodClass</span></span><a class="headerlink" href="#dbus.proxies.ProxyObject.DeferredMethodClass" title="Permalink to this definition"></a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">dbus.proxies._DeferredMethod</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dbus.proxies.ProxyObject.INTROSPECT_STATE_DONT_INTROSPECT">
+<span class="sig-name descname"><span class="pre">INTROSPECT_STATE_DONT_INTROSPECT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#dbus.proxies.ProxyObject.INTROSPECT_STATE_DONT_INTROSPECT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dbus.proxies.ProxyObject.INTROSPECT_STATE_INTROSPECT_DONE">
+<span class="sig-name descname"><span class="pre">INTROSPECT_STATE_INTROSPECT_DONE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#dbus.proxies.ProxyObject.INTROSPECT_STATE_INTROSPECT_DONE" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dbus.proxies.ProxyObject.INTROSPECT_STATE_INTROSPECT_IN_PROGRESS">
+<span class="sig-name descname"><span class="pre">INTROSPECT_STATE_INTROSPECT_IN_PROGRESS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#dbus.proxies.ProxyObject.INTROSPECT_STATE_INTROSPECT_IN_PROGRESS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dbus.proxies.ProxyObject.ProxyMethodClass">
+<span class="sig-name descname"><span class="pre">ProxyMethodClass</span></span><a class="headerlink" href="#dbus.proxies.ProxyObject.ProxyMethodClass" title="Permalink to this definition"></a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">dbus.proxies._ProxyMethod</span></code></p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="dbus.proxies.ProxyObject.bus_name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bus_name</span></span><a class="headerlink" href="#dbus.proxies.ProxyObject.bus_name" title="Permalink to this definition"></a></dt>
+<dd><p>The bus name to which this proxy is bound. (Read-only,
+may change.)</p>
+<p>If the proxy was instantiated using a unique name, this property
+is that unique name.</p>
+<p>If the proxy was instantiated with a well-known name and with
+<code class="docutils literal notranslate"><span class="pre">follow_name_owner_changes</span></code> set false (the default), this
+property is the unique name of the connection that owned that
+well-known name when the proxy was instantiated, which might
+not actually own the requested well-known name any more.</p>
+<p>If the proxy was instantiated with a well-known name and with
+<code class="docutils literal notranslate"><span class="pre">follow_name_owner_changes</span></code> set true, this property is that
+well-known name.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.proxies.ProxyObject.connect_to_signal">
+<span class="sig-name descname"><span class="pre">connect_to_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handler_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dbus_interface</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">keywords</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.proxies.ProxyObject.connect_to_signal" title="Permalink to this definition"></a></dt>
+<dd><p>Arrange for the given function to be called when the given signal
+is received.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><cite>signal_name</cite><span class="classifier">str</span></dt><dd><p>The name of the signal</p>
+</dd>
+<dt><cite>handler_function</cite><span class="classifier">callable</span></dt><dd><p>A function to be called when the signal is emitted by
+the remote object. Its positional arguments will be the
+arguments of the signal; optionally, it may be given
+keyword arguments as described below.</p>
+</dd>
+<dt><cite>dbus_interface</cite><span class="classifier">str</span></dt><dd><p>Optional interface with which to qualify the signal name.
+If None (the default) the handler will be called whenever a
+signal of the given member name is received, whatever
+its interface.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Keywords</dt>
+<dd class="field-even"><dl class="simple">
+<dt><cite>utf8_strings</cite><span class="classifier">bool</span></dt><dd><p>If True, the handler function will receive any string
+arguments as dbus.UTF8String objects (a subclass of str
+guaranteed to be UTF-8). If False (default) it will receive
+any string arguments as dbus.String objects (a subclass of
+unicode).</p>
+</dd>
+<dt><cite>byte_arrays</cite><span class="classifier">bool</span></dt><dd><p>If True, the handler function will receive any byte-array
+arguments as dbus.ByteArray objects (a subclass of str).
+If False (default) it will receive any byte-array
+arguments as a dbus.Array of dbus.Byte (subclasses of:
+a list of ints).</p>
+</dd>
+<dt><cite>sender_keyword</cite><span class="classifier">str</span></dt><dd><p>If not None (the default), the handler function will receive
+the unique name of the sending endpoint as a keyword
+argument with this name</p>
+</dd>
+<dt><cite>destination_keyword</cite><span class="classifier">str</span></dt><dd><p>If not None (the default), the handler function will receive
+the bus name of the destination (or None if the signal is a
+broadcast, as is usual) as a keyword argument with this name.</p>
+</dd>
+<dt><cite>interface_keyword</cite><span class="classifier">str</span></dt><dd><p>If not None (the default), the handler function will receive
+the signal interface as a keyword argument with this name.</p>
+</dd>
+<dt><cite>member_keyword</cite><span class="classifier">str</span></dt><dd><p>If not None (the default), the handler function will receive
+the signal name as a keyword argument with this name.</p>
+</dd>
+<dt><cite>path_keyword</cite><span class="classifier">str</span></dt><dd><p>If not None (the default), the handler function will receive
+the object-path of the sending object as a keyword argument
+with this name</p>
+</dd>
+<dt><cite>message_keyword</cite><span class="classifier">str</span></dt><dd><p>If not None (the default), the handler function will receive
+the <cite>dbus.lowlevel.SignalMessage</cite> as a keyword argument with
+this name.</p>
+</dd>
+<dt><cite>arg…</cite><span class="classifier">unicode or UTF-8 str</span></dt><dd><p>If there are additional keyword parameters of the form
+<code class="docutils literal notranslate"><span class="pre">arg</span></code><em>n</em>, match only signals where the <em>n</em>th argument
+is the value given for that keyword parameter. As of this time
+only string arguments can be matched (in particular,
+object paths and signatures can’t).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dbus.proxies.ProxyObject.get_dbus_method">
+<span class="sig-name descname"><span class="pre">get_dbus_method</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">member</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dbus_interface</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dbus.proxies.ProxyObject.get_dbus_method" title="Permalink to this definition"></a></dt>
+<dd><p>Return a proxy method representing the given D-Bus method. The
+returned proxy method can be called in the usual way. For instance,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">proxy</span><span class="o">.</span><span class="n">get_dbus_method</span><span class="p">(</span><span class="s2">&quot;Foo&quot;</span><span class="p">,</span> <span class="n">dbus_interface</span><span class="o">=</span><span class="s1">&#39;com.example.Bar&#39;</span><span class="p">)(</span><span class="mi">123</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>is equivalent to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">proxy</span><span class="o">.</span><span class="n">Foo</span><span class="p">(</span><span class="mi">123</span><span class="p">,</span> <span class="n">dbus_interface</span><span class="o">=</span><span class="s1">&#39;com.example.Bar&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>or even:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">getattr</span><span class="p">(</span><span class="n">proxy</span><span class="p">,</span> <span class="s2">&quot;Foo&quot;</span><span class="p">)(</span><span class="mi">123</span><span class="p">,</span> <span class="n">dbus_interface</span><span class="o">=</span><span class="s1">&#39;com.example.Bar&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>However, using <cite>get_dbus_method</cite> is the only way to call D-Bus
+methods with certain awkward names - if the author of a service
+implements a method called <code class="docutils literal notranslate"><span class="pre">connect_to_signal</span></code> or even
+<code class="docutils literal notranslate"><span class="pre">__getattr__</span></code>, you’ll need to use <cite>get_dbus_method</cite> to call them.</p>
+<p>For services which follow the D-Bus convention of CamelCaseMethodNames
+this won’t be a problem.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="dbus.proxies.ProxyObject.object_path">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">object_path</span></span><a class="headerlink" href="#dbus.proxies.ProxyObject.object_path" title="Permalink to this definition"></a></dt>
+<dd><p>The object-path of this proxy.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="dbus.proxies.ProxyObject.requested_bus_name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">requested_bus_name</span></span><a class="headerlink" href="#dbus.proxies.ProxyObject.requested_bus_name" title="Permalink to this definition"></a></dt>
+<dd><p>The bus name which was requested when this proxy was
+instantiated.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="dbus.mainloop.html" class="btn btn-neutral float-left" title="dbus.mainloop package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dbus.server.html" class="btn btn-neutral float-right" title="dbus.server module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2003-2018, D-Bus contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

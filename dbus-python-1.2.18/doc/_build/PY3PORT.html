@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Porting to Python 3 &mdash; dbus-python 1.2.18 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Release history" href="news.html" />
+    <link rel="prev" title="dbus.gobject_service module" href="dbus.gobject_service.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> dbus-python
+          </a>
+              <div class="version">
+                1.2.18
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">dbus-python tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dbus.html">dbus package API reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Porting to Python 3</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#user-visible-changes">User visible changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bytes-vs-strings">Bytes vs. Strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ints-vs-longs">Ints vs. Longs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#macros">Macros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pycapsule-vs-pycobject">PyCapsule vs. PyCObject</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#python-level-compatibility">Python level compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#miscellaneous">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#open-issues">Open issues</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="news.html">Release history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="API_CHANGES.html">API changes in dbus-python 0.80</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">dbus-python</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Porting to Python 3</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/PY3PORT.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="porting-to-python-3">
+<h1>Porting to Python 3<a class="headerlink" href="#porting-to-python-3" title="Permalink to this headline"></a></h1>
+<p>This is an experimental port to Python 3.x where x &gt;= 2.  There are lots of
+great sources for porting C extensions to Python 3, including:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="http://python3porting.com/toc.html">http://python3porting.com/toc.html</a></p></li>
+<li><p><a class="reference external" href="http://docs.python.org/howto/cporting.html">http://docs.python.org/howto/cporting.html</a></p></li>
+<li><p><a class="reference external" href="http://docs.python.org/py3k/c-api/index.html">http://docs.python.org/py3k/c-api/index.html</a></p></li>
+</ul>
+</div></blockquote>
+<p>I also consulted an early take on this port by John Palmieri and David Malcolm
+in the context of Fedora:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://bugs.freedesktop.org/show_bug.cgi?id=26420">https://bugs.freedesktop.org/show_bug.cgi?id=26420</a></p></li>
+</ul>
+</div></blockquote>
+<p>although I have made some different choices.  The patches in that tracker
+issue also don’t cover porting the Python bits (e.g. the test suite), nor the
+pygtk -&gt; pygi porting, both which I’ve also attempted to do in this branch.</p>
+<p>This document outlines my notes and strategies for doing this port.  Please
+feel free to contact me with any bugs, issues, disagreements, suggestions,
+kudos, and curses.</p>
+<p>Barry Warsaw
+<a class="reference external" href="mailto:barry&#37;&#52;&#48;python&#46;org">barry<span>&#64;</span>python<span>&#46;</span>org</a>
+2011-11-11</p>
+<section id="user-visible-changes">
+<h2>User visible changes<a class="headerlink" href="#user-visible-changes" title="Permalink to this headline"></a></h2>
+<p>You’ve got some dbus-python code that works great in Python 2.  This branch
+should generally allow your existing Python 2 code to continue to work
+unchanged.  There are a few changes you’ll notice in Python 2 though:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The minimum supported Python 2 version is 2.7.</p></li>
+<li><p>All object reprs are unicodes.  This change was made because it greatly
+simplifies the implementation and cross-compatibility with Python 3.</p></li>
+<li><p>Some exception strings have changed.</p></li>
+<li><p><cite>MethodCallMessage</cite> and <cite>SignalMessage</cite> objects have better reprs now.</p></li>
+</ul>
+</div></blockquote>
+<p>What do you need to do to port that to Python 3?  Here are the user visible
+changes you should be aware of, relative to Python 2.  Python 3.2 is the
+minimal required version:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>ByteArray</cite> objects must be initialized with bytes objects, not unicodes.
+Use <cite>b’’</cite> literals in the constructor.  This also works in Python 2, where
+bytes objects are aliases for 8-bit strings.</p></li>
+<li><p><cite>Byte</cite> objects must be initialized with either a length-1 bytes object
+(again, use <cite>b’’</cite> literals to be compatible with either Python 2 or 3)
+or an integer.</p></li>
+<li><p>byte signatures (i.e. <cite>y</cite> type codes) must be passed either a length-1
+bytes object or an integer. unicodes (str in Python 3) are not allowed.</p></li>
+<li><p><cite>ByteArray</cite> is now a subclass of <cite>bytes</cite>, where in Python 2 it is a
+subclass of <cite>str</cite>.</p></li>
+<li><p><cite>dbus.UTF8String</cite> is gone, use <cite>dbus.String</cite>.  Also <cite>utf8_string</cite> arguments
+are no longer allowed.</p></li>
+<li><p>All longs are now ints, since Python 3 has only a single int type.  This
+also means that the class hierarchy for the dbus numeric types has changed
+(all derive from int in Python 3).</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="bytes-vs-strings">
+<h2>Bytes vs. Strings<a class="headerlink" href="#bytes-vs-strings" title="Permalink to this headline"></a></h2>
+<p>All strings in dbus are defined as UTF-8:</p>
+<p><a class="reference external" href="http://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-signatures">http://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-signatures</a></p>
+<p>However, the dbus C API accepts <cite>char*</cite> which must be UTF-8 strings NUL
+terminated and no other NUL bytes.</p>
+<p>This page describes the mapping between Python types and dbus types:</p>
+<blockquote>
+<div><p><a class="reference external" href="http://dbus.freedesktop.org/doc/dbus-python/doc/tutorial.html#basic-types">http://dbus.freedesktop.org/doc/dbus-python/doc/tutorial.html#basic-types</a></p>
+</div></blockquote>
+<p>Notice that it maps dbus <cite>string</cite> (<cite>‘s’</cite>) to <cite>dbus.String</cite> (unicode) or
+<cite>dbus.UTF8String</cite> (str).  Also notice that there is no direct dbus equivalent
+of Python’s bytes type (although dbus does have byte arrays), so I am mapping
+dbus strings to unicodes in all cases, and getting rid of <cite>dbus.UTF8String</cite> in
+Python 3.  I’ve also added a <cite>dbus._BytesBase</cite> type which is unused in Python
+2, but which forms the base class for <cite>dbus.ByteArray</cite> in Python 3.  This is
+an implementation detail and not part of the public API.</p>
+<p>In Python 3, object paths (<cite>‘o’</cite> or <cite>dbus.ObjectPath</cite>), signatures (<cite>‘g’</cite> or
+<cite>dbus.Signature</cite>), bus names, interfaces, and methods are all strings.  A
+previous aborted effort was made to use bytes for these, which at first blush
+may makes some sense, but on deeper consideration does not.  This approach
+also tended to impose too many changes on user code, and caused lots of
+difficult to track down problems.</p>
+<p>In Python 3, all such objects are subclasses of <cite>str</cite> (i.e. <cite>unicode</cite>).</p>
+<p>(As an example, dbus-python’s callback dispatching pretty much assumes all
+these things are strings.  When they are bytes, the fact that <cite>‘foo’ != b’foo’</cite>
+causes dispatch matching to fail in difficult to debug ways.  Even bus names
+are not immune, since they do things like <cite>bus_name[:1] == ‘:’</cite> which fails in
+multiple ways when <cite>bus_name</cite> is a bytes.  For sanity purposes, these are all
+unicode strings now, and we just eat the complexity at the C level.)</p>
+<p>I am using <cite>#include &lt;bytesobject.h&gt;</cite>, which exposes the PyBytes API to Python
+2.6 and 2.7, and I have converted all internal PyString calls to PyBytes
+calls.  Where this is inappropriate, we’ll use PyUnicode calls explicitly.
+E.g. all repr() implementations now return unicodes.  Most of these changes
+shouldn’t be noticed, even in existing Python 2 code.</p>
+<p>Generally, I’ve left the descriptions and docstrings saying “str” instead of
+“unicode” since there’s no distinction in Python 3.</p>
+<p>APIs which previously returned PyStrings will usually return PyUnicodes, not
+PyBytes.</p>
+</section>
+<section id="ints-vs-longs">
+<h2>Ints vs. Longs<a class="headerlink" href="#ints-vs-longs" title="Permalink to this headline"></a></h2>
+<p>Python 3 only has PyLong types; PyInts are gone.  For that reason, I’ve
+switched all PyInt calls to use PyLong in both Python 2 and Python 3.  Python
+3.0 had a nice <cite>&lt;intobject.h&gt;</cite> header that aliased PyInt to PyLong, but that’s
+gone as of Python 3.1, and the minimal required Python 3 version is 3.2.</p>
+<p>In the above page mapping basic types, you’ll notice that the Python int type
+is mapped to 32-bit signed integers (‘i’) and the Python long type is mapped
+to 64-bit signed integers (‘x’).  Python 3 doesn’t have this distinction, so
+ints map to ‘i’ even though ints can be larger in Python 3.  Use the
+dbus-specific integer types if you must have more exact mappings.</p>
+<p>APIs which accepted ints in Python 2 will still do so, but they’ll also now
+accept longs.  These APIs obviously only accept longs in Python 3.</p>
+<p>Long literals in Python code are an interesting thing to have to port.  Don’t
+use them if you want your code to work in both Python versions.</p>
+<p><cite>dbus._IntBase</cite> is removed in Python 3, you only have <cite>dbus._LongBase</cite>, which
+inherits from a Python 3 int (i.e. a PyLong).  Again, this is an
+implementation detail that users should never care about.</p>
+</section>
+<section id="macros">
+<h2>Macros<a class="headerlink" href="#macros" title="Permalink to this headline"></a></h2>
+<p>In types-internal.h, I define <cite>PY3K</cite> when <cite>PY_MAJOR_VERSION</cite> &gt;= 3, so you’ll
+see ifdefs on the former symbol within the C code.</p>
+<p>Python 3 really could use a PY_REFCNT() wrapper for ob_refcnt access.</p>
+</section>
+<section id="pycapsule-vs-pycobject">
+<h2>PyCapsule vs. PyCObject<a class="headerlink" href="#pycapsule-vs-pycobject" title="Permalink to this headline"></a></h2>
+<p><cite>_dbus_bindings._C_API</cite> is an attribute exposed to Python in the module.  In
+Python 2, this is a PyCObject, but these do not exist in Python &gt;= 3.2, so it
+is replaced with a PyCapsules for Python 3.  However, since PyCapsules were
+only introduced in Python 2.7, and I want to support Python 2.6, PyCObjects
+are still used when this module is compiled for Python 2.</p>
+</section>
+<section id="python-level-compatibility">
+<h2>Python level compatibility<a class="headerlink" href="#python-level-compatibility" title="Permalink to this headline"></a></h2>
+<p><cite>from dbus import _is_py3</cite> gives you a flag to check if you must do something
+different in Python 3.  In general I use this flag to support both versions in
+one set of sources, which seems better than trying to use 2to3.  It’s not part
+of the dbus-python public API, so you must not use it in third-party projects.</p>
+</section>
+<section id="miscellaneous">
+<h2>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this headline"></a></h2>
+<p>The PyDoc_STRVAR() documentation is probably out of date.  Once the API
+choices have been green-lighted upstream, I’ll make a pass through the code to
+update them.  It might be tricky based on any differences between Python 2 and
+Python 3.</p>
+<p>There were a few places where I noticed what might be considered bugs,
+unchecked exception conditions, or possible reference count leaks.  In these
+cases, I’ve just fixed what I can and hopefully haven’t made the situation
+worse.</p>
+<p><cite>dbus_py_variant_level_get()</cite> did not check possible error conditions, nor did
+their callers.  When <cite>dbus_py_variant_level_get()</cite> encounters an error, it now
+returns -1, and callers check this.</p>
+<p>As much as possible, I’ve refrained from general code cleanups (e.g. 80
+columns), unless it just bugged me too much or I touched the code for reasons
+related to the port.  I’ve also tried to stick to existing C code style,
+e.g. through the use of pervasive <cite>Py_CLEAR()</cite> calls, comparison against NULL
+usually with <cite>!foo</cite>, and such.  As Bart Simpson might write on his classroom
+blackboard:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">This</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">a</span> <span class="n">rewrite</span>
+<span class="n">This</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">a</span> <span class="n">rewrite</span>
+<span class="n">This</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">a</span> <span class="n">rewrite</span>
+<span class="n">This</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">a</span> <span class="n">rewrite</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>and so on.  Well, mostly ;).</p>
+<p>I think I fixed a reference leak in <cite>DBusPyServer_set_auth_mechanisms()</cite>.
+<cite>PySequence_Fast()</cite> returns a new reference, which wasn’t getting decref’d in
+any return path.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Instantiation of metaclasses uses different, incompatible syntax in Python
+2 and 3.  You have to use direct calling of the metaclass to work across
+versions, i.e. <cite>Interface = InterfaceType(‘Interface’, (object,), {})</cite></p></li>
+<li><p><cite>iteritems()</cite> and friends are gone.  I dropped the “iter” prefixes.</p></li>
+<li><p><cite>xrange() is gone.  I changed them to use `range()</cite>.</p></li>
+<li><p><cite>isSequenceType()</cite> is gone in Python 3, so I use a different idiom there.</p></li>
+<li><p><cite>__next__()</cite> vs. <cite>next()</cite></p></li>
+<li><p><cite>PyUnicode_FromFormat()</cite> <cite>%V</cite> flag is a clever hack!</p></li>
+<li><p><cite>PyArg_Parse()</cite>: No ‘y’ code in Python 2; in Python 3, no equivalent of ‘z’
+for bytes objects.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="open-issues">
+<h2>Open issues<a class="headerlink" href="#open-issues" title="Permalink to this headline"></a></h2>
+<p>Here are a few things that still need to be done, or for which there may be
+open questions:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">Update</span> <span class="nb">all</span> <span class="n">C</span> <span class="n">extension</span> <span class="n">docstrings</span> <span class="k">for</span> <span class="n">accuracy</span><span class="o">.</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="dbus.gobject_service.html" class="btn btn-neutral float-left" title="dbus.gobject_service module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="news.html" class="btn btn-neutral float-right" title="Release history" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2003-2018, D-Bus contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

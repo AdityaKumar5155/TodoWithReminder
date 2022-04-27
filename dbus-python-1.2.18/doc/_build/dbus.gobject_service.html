@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dbus.gobject_service module &mdash; dbus-python 1.2.18 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Porting to Python 3" href="PY3PORT.html" />
+    <link rel="prev" title="dbus.glib module" href="dbus.glib.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> dbus-python
+          </a>
+              <div class="version">
+                1.2.18
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">dbus-python tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="dbus.html">dbus package API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="dbus.html#submodules">Submodules</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="dbus.html#deprecated-submodules">Deprecated submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="dbus.glib.html">dbus.glib module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">dbus.gobject_service module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dbus.html#module-dbus">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PY3PORT.html">Porting to Python 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="news.html">Release history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="API_CHANGES.html">API changes in dbus-python 0.80</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">dbus-python</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="dbus.html">dbus package API reference</a> &raquo;</li>
+      <li>dbus.gobject_service module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/dbus.gobject_service.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-gobject_service">
+<span id="dbus-gobject-service-module"></span><h1>dbus.gobject_service module<a class="headerlink" href="#module-gobject_service" title="Permalink to this headline"></a></h1>
+<p>This module is only available when using Python 2, and is deprecated.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="gobject_service.ExportedGObjectType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gobject_service.</span></span><span class="sig-name descname"><span class="pre">ExportedGObjectType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dct</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gobject_service.ExportedGObjectType" title="Permalink to this definition"></a></dt>
+<dd><p>A metaclass which inherits from both GObjectMeta and
+<cite>dbus.service.InterfaceType</cite>. Used as the metaclass for
+<cite>ExportedGObject</cite>.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gobject_service.ExportedGObject">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gobject_service.</span></span><span class="sig-name descname"><span class="pre">ExportedGObject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gobject_service.ExportedGObject" title="Permalink to this definition"></a></dt>
+<dd><p>A GObject which is exported on the D-Bus.</p>
+<p>Because GObject and <cite>dbus.service.Object</cite> both have custom metaclasses,
+the naive approach using simple multiple inheritance won’t work. This
+class has <cite>ExportedGObjectType</cite> as its metaclass, which is sufficient
+to make it work correctly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conn</strong> (<a class="reference internal" href="dbus.connection.html#dbus.connection.Connection" title="dbus.connection.Connection"><em>dbus.connection.Connection</em></a>) – The D-Bus connection or bus</p></li>
+<li><p><strong>object_path</strong> (<em>str</em>) – The object path at which to register this object.</p></li>
+<li><p><strong>bus_name</strong> (<a class="reference internal" href="dbus.service.html#dbus.service.BusName" title="dbus.service.BusName"><em>dbus.service.BusName</em></a>) – A bus name to be held on behalf of this object, or None.</p></li>
+<li><p><strong>gobject_properties</strong> (<em>dict</em>) – <p>GObject properties to be set on the constructed object.</p>
+<p>Any unrecognised keyword arguments will also be interpreted
+as GObject properties.</p>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="dbus.glib.html" class="btn btn-neutral float-left" title="dbus.glib module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="PY3PORT.html" class="btn btn-neutral float-right" title="Porting to Python 3" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2003-2018, D-Bus contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
