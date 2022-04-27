@@ -1,3 +1,0 @@
-{ global:
-PyInit__dbus_bindings;
-local: *; };
